@@ -1,0 +1,292 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout android:id="@+id/development_root"
+              xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:background="@drawable/dev_bg_dialog"
+              android:orientation="vertical"
+              android:padding="10dp">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="Development Options"
+        android:textColor="@color/dev_clr_code_green"
+        android:textSize="15sp"
+        android:textStyle="bold"
+        android:typeface="monospace"/>
+
+    <View
+        style="@style/horizontal_line"
+        android:layout_marginTop="2.5dp"
+        android:background="@color/dev_clr_code_green"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/development_application_version"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="versionName"
+            android:textColor="@color/dev_clr_code_green"
+            android:textSize="12sp"
+            android:textStyle="bold"
+            android:typeface="monospace"/>
+
+        <View style="@style/horizontal_bumper"/>
+
+        <TextView
+            android:id="@+id/development_values_type"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="ScreenType"
+            android:textColor="@color/dev_clr_code_green"
+            android:textSize="12sp"
+            android:textStyle="bold"
+            android:typeface="monospace"/>
+    </LinearLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <!--SERVICE LINK CHANGE OPTION-->
+            <EditText
+                android:id="@+id/development_service_link_value"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginBottom="2.5dp"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/dev_bg_button_transparent"
+                android:gravity="center_vertical"
+                android:paddingLeft="5dp"
+                android:paddingRight="5dp"
+                android:text="Service Url"
+                android:textColor="@color/dev_clr_code_green"
+                android:textSize="12.5dp"
+                android:textStyle="bold"
+                android:typeface="monospace"/>
+
+            <TextView
+                android:id="@+id/development_service_link_header"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="11dp"
+                android:background="@drawable/dev_bg_button_transparent"
+                android:paddingBottom="2dp"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:paddingTop="2dp"
+                android:text="SELECT SERVICE LINK"
+                android:textColor="@color/dev_clr_code_green"
+                android:textSize="12.5dp"
+                android:textStyle="bold"
+                android:typeface="monospace"/>
+
+            <TextView
+                android:id="@+id/development_service_link_select"
+                android:layout_width="wrap_content"
+                android:layout_height="25dp"
+                android:layout_alignParentRight="true"
+                android:layout_below="@id/development_service_link_value"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="-15dp"
+                android:background="@drawable/dev_bg_button"
+                android:gravity="center"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:text="SELECT SERVICE LINK"
+                android:textColor="@color/dev_clr_code_green"
+                android:textSize="10sp"
+                android:textStyle="bold"
+                android:typeface="monospace"/>
+
+            <!--DEVELOPMENT OPTIONS HEADER-->
+            <TextView
+                android:id="@+id/development_options_header"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/development_service_link_select"
+                android:layout_marginTop="20dp"
+                android:text="@string/txt_development_default_options"
+                android:textColor="@color/dev_clr_code_green"
+                android:textSize="12.5dp"
+                android:textStyle="bold"
+                android:typeface="monospace"/>
+
+            <View
+                android:id="@+id/development_options_header_bottom_line"
+                style="@style/horizontal_line"
+                android:layout_below="@id/development_options_header"
+                android:layout_marginTop="2.5dp"
+                android:background="@color/dev_clr_code_green"/>
+
+
+            <!--DEVELOPMENT BUTTON VISIBILITY OPTION-->
+            <CheckBox
+                android:id="@+id/development_mode_check"
+                style="@style/style_developement_checkbox_circle"
+                android:layout_below="@id/development_options_header"
+                android:layout_marginTop="10dp"/>
+
+            <TextView
+                android:id="@+id/development_mode_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBottom="@id/development_mode_check"
+                android:layout_alignTop="@id/development_mode_check"
+                android:layout_marginLeft="7.5dp"
+                android:layout_toRightOf="@id/development_mode_check"
+                android:gravity="center_vertical"
+                android:text="Development Mode Enabled"
+                android:textColor="@color/dev_clr_code_green"
+                android:textSize="12.5dp"
+                android:textStyle="bold"
+                android:typeface="monospace"/>
+
+            <CheckBox
+                android:id="@+id/development_ufo_check"
+                style="@style/style_developement_checkbox_circle"
+                android:layout_below="@id/development_mode_check"
+                android:layout_marginTop="10dp"/>
+
+            <TextView
+                android:id="@+id/development_ufo_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBottom="@id/development_ufo_check"
+                android:layout_alignTop="@id/development_ufo_check"
+                android:layout_marginLeft="7.5dp"
+                android:layout_toRightOf="@id/development_ufo_check"
+                android:gravity="center_vertical"
+                android:text="Development Button Visible"
+                android:textColor="@color/dev_clr_code_green"
+                android:textSize="12.5dp"
+                android:textStyle="bold"
+                android:typeface="monospace"/>
+
+            <!--AUTO FILL TEXT AREA-->
+            <CheckBox
+                android:id="@+id/development_auto_fill_check"
+                style="@style/style_developement_checkbox_circle"
+                android:layout_below="@id/development_ufo_check"
+                android:layout_marginTop="10dp"/>
+
+            <TextView
+                android:id="@+id/development_auto_fill_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBottom="@id/development_auto_fill_check"
+                android:layout_alignTop="@id/development_auto_fill_check"
+                android:layout_marginLeft="7.5dp"
+                android:layout_toRightOf="@id/development_auto_fill_check"
+                android:gravity="center_vertical"
+                android:text="Editable Area Auto-fill Enabled"
+                android:textColor="@color/dev_clr_code_green"
+                android:textSize="12.5dp"
+                android:textStyle="bold"
+                android:typeface="monospace"/>
+
+            <!--KEEP DEVICE AWAKE-->
+            <CheckBox
+                android:id="@+id/development_stay_awake_check"
+                style="@style/style_developement_checkbox_circle"
+                android:layout_below="@id/development_auto_fill_check"
+                android:layout_marginTop="10dp"/>
+
+            <TextView
+                android:id="@+id/development_stay_awake_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBottom="@id/development_stay_awake_check"
+                android:layout_alignTop="@id/development_stay_awake_check"
+                android:layout_marginLeft="7.5dp"
+                android:layout_toRightOf="@id/development_stay_awake_check"
+                android:gravity="center_vertical"
+                android:text="Force Device to Stay Awake"
+                android:textColor="@color/dev_clr_code_green"
+                android:textSize="12.5dp"
+                android:textStyle="bold"
+                android:typeface="monospace"/>
+
+
+            <!--DEVELOPMENT OPTIONS HEADER-->
+            <TextView
+                android:id="@+id/development_options_custom_options_header"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/development_stay_awake_text"
+                android:layout_marginTop="20dp"
+                android:text="@string/txt_development_custom_options_header"
+                android:textColor="@color/dev_clr_code_green"
+                android:textSize="12.5dp"
+                android:textStyle="bold"
+                android:typeface="monospace"/>
+
+            <View
+                android:id="@+id/development_options_footer_line"
+                style="@style/horizontal_line"
+                android:layout_below="@id/development_options_custom_options_header"
+                android:layout_marginBottom="10dp"
+                android:layout_marginTop="10dp"
+                android:background="@color/dev_clr_code_green"/>
+
+            <AbsoluteLayout
+                android:id="@+id/development_custom_checks_area"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/development_options_footer_line"
+                android:minHeight="25dp"/>
+        </RelativeLayout>
+    </ScrollView>
+
+    <View
+        style="@style/horizontal_line"
+        android:layout_marginBottom="2.5dp"
+        android:layout_marginTop="2.5dp"
+        android:background="@color/dev_clr_code_green"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/development_restart_app"
+            android:layout_width="125dp"
+            android:layout_height="25dp"
+            android:background="@drawable/dev_bg_button"
+            android:gravity="center"
+            android:text="RESTART APP >"
+            android:textColor="@color/dev_clr_code_green"
+            android:textSize="12.5dp"
+            android:textStyle="bold"
+            android:typeface="monospace"/>
+
+        <View style="@style/horizontal_bumper"/>
+
+        <TextView
+            android:id="@+id/development_ok"
+            android:layout_width="100dp"
+            android:layout_height="25dp"
+            android:background="@drawable/dev_bg_button"
+            android:gravity="center"
+            android:text="OK"
+            android:textColor="@color/dev_clr_code_green"
+            android:textSize="12.5dp"
+            android:textStyle="bold"
+            android:typeface="monospace"/>
+    </LinearLayout>
+</LinearLayout>

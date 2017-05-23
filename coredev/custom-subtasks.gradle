@@ -1,0 +1,83 @@
+// OVERRIDE build.gradle
+android {
+    defaultConfig {
+        android.libraryVariants.all { variant ->
+            def currentVersionName = 'def'
+
+            currentVersionName = getVersionName()
+
+            // Override version name for specific build variant
+            variant.mergedFlavor.versionName = currentVersionName;
+        }
+    }
+}
+
+// Override ext scope so that bintrayUpload version can be set
+ext {
+    libraryVersion = getVersionName()
+}
+
+// ===================================
+// FUNCTIONS
+def getVersionName() {
+    CURRENT_MAJOR_VERSION + "." + CURRENT_MINOR_VERSION + "." + (Integer.parseInt(CURRENT_UPLOAD_VERSION) + 1)
+}
+
+def increaseVersionNameByOne() {
+    ant.propertyfile(file: "../gradle.properties") {
+        entry(key: "CURRENT_UPLOAD_VERSION", value: (Integer.parseInt(CURRENT_UPLOAD_VERSION) + 1))
+    }
+}
+
+// Auto-commit version changes
+def commitChangesForDistribution() {
+    // Print information text
+    println '=======' +
+            '\ncommitChangesForDistribution:' +
+            '\n\t\tProjectName  : ' + project.getProject().name +
+            '\n\t\tVersionName  : ' + project.hurPlugInVersionName +
+            '\n\t\tCommitMessage: ' + project.hurPlugInCommitMessage +
+            '\n======='
+    exec {
+        if (System.getProperty('os.name').toLowerCase().contains('windows')) {
+            // Stage & commit all file changes in windows
+            commandLine 'cmd', '/c', 'git add -A && git commit -m "' + project.hurPlugInCommitMessage + '"'
+        } else {
+            // Stage & commit all file changes in mac & others
+            commandLine 'sh', '-c', 'git add -A && git commit -m "' + project.hurPlugInCommitMessage + '"'
+        }
+    }
+}
+// FUNCTIONS
+// ===================================
+
+// ===================================
+// TASK CUSTOMIZATION
+tasks.whenTaskAdded { task ->
+    if (task.name.toLowerCase().contains('release')) {
+        if (task.name == 'assembleRelease') {
+            // <assembleRelease> task triggers <onAssembleRelease> which is custom task to our stuff
+            task.dependsOn('onAssembleRelease')
+            // <bintrayUpload> task must be called after the <assembleRelease> task is finished.
+            task.finalizedBy('bintrayUpload')
+        }
+    }
+
+    // Other Rules ( Clean & build project before the <assembleRelease> task group. )
+    preBuild.dependsOn clean
+    preBuild.mustRunAfter clean
+    build.dependsOn preBuild
+    build.mustRunAfter preBuild
+}
+
+task('onAssembleRelease') << {
+    println "TASK: ON ASSEMBLE RELEASE"
+    project.ext.set('hurPlugInVersionName', getVersionName())
+    project.ext.set('hurPlugInCommitMessage', 'v' + project.hurPlugInVersionName + ' Please amend this message')
+
+    increaseVersionNameByOne()
+    //commitChangesForDistribution()
+}
+
+// TASK CUSTOMIZATION
+// ===================================

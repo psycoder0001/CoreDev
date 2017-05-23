@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">CoreDev</string>
+    <string name="txt_development_custom_options_header">CUSTOM DEVELOPMENT OPTIONS</string>
+    <string name="txt_development_default_options">DEVELOPMENT OPTIONS</string>
+</resources>

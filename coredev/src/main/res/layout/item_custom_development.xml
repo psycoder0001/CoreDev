@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    android:id="@+id/development_item_custom_root"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_margin="5dp"
+    android:descendantFocusability="blocksDescendants"
+    tools:background="@drawable/dev_bg_button">
+
+    <CheckBox
+        android:id="@+id/development_item_custom_check_check"
+        style="@style/style_developement_checkbox_circle"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="10dp"
+        android:clickable="false"
+        android:focusable="false"/>
+
+    <TextView
+        android:id="@+id/development_item_custom_check_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@id/development_item_custom_check_check"
+        android:layout_alignTop="@id/development_item_custom_check_check"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="7.5dp"
+        android:layout_toRightOf="@id/development_item_custom_check_check"
+        android:textColor="@color/dev_clr_code_green"
+        android:textSize="12.5dp"
+        android:textStyle="bold"
+        android:typeface="monospace"
+        tools:text="Development Mode Enabled"/>
+</RelativeLayout>

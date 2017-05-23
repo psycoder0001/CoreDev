@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+
+    <!--HORIZONTAL LINE-->
+    <style name="horizontal_line">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">0.5dp</item>
+        <item name="android:background">#cbc7cc</item>
+    </style>
+    <!--HORIZONTAL LINE-->
+
+    <!--VERTICAL LINE-->
+    <style name="vertical_line">
+        <item name="android:layout_width">0.5dp</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:background">#cbc7cc</item>
+    </style>
+    <!--VERTICAL LINE-->
+
+    <!--HORIZONTAL LINE-->
+    <style name="horizontal_bumper">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:layout_height">0.5dp</item>
+    </style>
+    <!--HORIZONTAL LINE-->
+
+    <!--VERTICAL LINE-->
+    <style name="vertical_bumper">
+        <item name="android:layout_width">0.5dp</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:layout_height">0dp</item>
+    </style>
+    <!--VERTICAL LINE-->
+
+    <!--DIALOG THEME-->
+    <style name="style_dialog_fullscreen" parent="@android:style/Theme.Dialog">
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:background">@android:color/transparent</item>
+    </style>
+    <!--DIALOG THEME-->
+
+    <!--CUSTOM SPINNER DIALOG PHONE ANIMATION-->
+    <style name="customSpinnerDialogAnimation">
+        <item name="android:windowEnterAnimation">@anim/anim_in_from_bottom</item>
+        <item name="android:windowExitAnimation">@anim/anim_out_from_bottom</item>
+    </style>
+    <!--CUSTOM SPINNER DIALOG PHONE ANIMATION-->
+
+    <!--DEVELOPMENT DIALOG STYLES-->
+    <style name="style_developement_checkbox_circle" parent="android:Widget.CompoundButton.CheckBox">
+        <item name="android:layout_width">15dp</item>
+        <item name="android:layout_height">15dp</item>
+        <item name="android:button">@android:color/transparent</item>
+        <item name="android:background">@drawable/dev_checkbox_circle_style</item>
+    </style>
+
+    <style name="development_group_background_top_line">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:paddingLeft">7.5dp</item>
+        <item name="android:paddingRight">7.5dp</item>
+        <item name="android:background">@drawable/layout_headerbg_with_top_line</item>
+    </style>
+
+    <style name="development_group_background_topbot_line" parent="development_group_background_top_line">
+        <item name="android:background">@drawable/layout_payment_headerbg_with_topbot_line</item>
+    </style>
+
+    <style name="style_developement_left_content">
+        <item name="android:paddingTop">7.5dp</item>
+        <item name="android:paddingBottom">7.5dp</item>
+        <item name="android:textColor">#FF992222</item>
+        <item name="android:textSize">8dp</item>
+    </style>
+
+    <style name="style_developement_right_content">
+        <item name="android:paddingTop">7.5dp</item>
+        <item name="android:paddingBottom">7.5dp</item>
+        <item name="android:textColor">#FF000000</item>
+        <item name="android:textSize">8dp</item>
+    </style>
+    <!--DEVELOPMENT DIALOG STYLES-->
+
+</resources>

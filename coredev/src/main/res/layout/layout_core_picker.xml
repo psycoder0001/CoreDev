@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    android:id="@+id/core_core_picker_root"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="#f5f5f5"
+    >
+
+    <TextView
+        android:id="@+id/core_picker_header_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:gravity="center_vertical|left"
+        android:padding="7.5dp"
+        android:textColor="#222222"
+        android:textSize="15sp"
+        android:textStyle="bold"
+        android:typeface="monospace"
+        tools:text="Selection Header"/>
+
+    <View
+        style="@style/horizontal_line"
+        android:background="#F222"/>
+
+    <View
+        android:id="@+id/core_picker_horizontal_line"
+        style="@style/horizontal_line"
+        android:layout_below="@id/core_picker_header_text"
+        android:background="#F222"/>
+
+    <AbsoluteLayout
+        android:id="@+id/core_picker_list_area"
+        android:layout_width="match_parent"
+        android:layout_height="250dp"
+        android:layout_below="@id/core_picker_horizontal_line"/>
+</RelativeLayout>

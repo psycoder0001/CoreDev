@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!--DEVELOPMENT Colors-->
+    <color name="development_background">#CC6600</color>
+    <color name="development_green">#00BB00</color>
+    <color name="development_purple">#FAAF</color>
+    <color name="development_blue">#FAFF</color>
+    <color name="development_blue_dark">#F16F</color>
+    <color name="development_orange">#FF80</color>
+    <color name="development_gray">#FAAA</color>
+    <color name="development_gray_dark">#F666</color>
+    <color name="c_invalid_input">#DD3E48</color>
+    <color name="dev_clr_code_green">#22AA22</color>
+</resources>

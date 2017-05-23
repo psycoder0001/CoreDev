@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item>
+        <inset>
+            <selector>
+                <!--Unpressed-->
+                <item android:state_pressed="false">
+                    <shape android:shape="oval">
+                        <solid android:color="#F000"/>
+                    </shape>
+                </item>
+                <!--Pressed-->
+                <item android:state_pressed="true">
+                    <shape android:shape="oval">
+                        <solid android:color="#224422"/>
+                    </shape>
+                </item>
+            </selector>
+        </inset>
+    </item>
+    <item>
+        <inset>
+            <selector>
+                <!--Unpressed-->
+                <item android:state_pressed="false">
+                    <shape android:shape="oval">
+                        <stroke
+                            android:width="2dp"
+                            android:color="@color/dev_clr_code_green"/>
+                    </shape>
+                </item>
+                <!--Pressed-->
+                <item android:state_pressed="true">
+                    <shape android:shape="oval">
+                        <solid
+                            android:width="2dp"
+                            android:color="@color/dev_clr_code_green"/>
+                    </shape>
+                </item>
+            </selector>
+        </inset>
+    </item>
+</layer-list>
