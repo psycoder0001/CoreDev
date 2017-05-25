@@ -10,7 +10,7 @@ ext {
 
     publishedGroupId = 'com.deepdroid.coredev'
     libraryName = 'coredev'
-    artifact = 'Core-Dev'
+    artifact = 'coredev'
 
     libraryDescription = 'empty'
 
@@ -23,6 +23,10 @@ ext {
     licenseName = 'The Apache Software License, Version 2.0'
     licenseUrl = 'http://www.apache.org/licenses/LICENSE-2.0.txt'
     allLicenses = ["Apache-2.0"]
+}
+
+task sourceJar(type: Jar) {
+    classifier "source"
 }
 
 android {
