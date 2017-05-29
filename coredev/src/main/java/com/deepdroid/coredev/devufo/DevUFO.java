@@ -18,7 +18,7 @@ import com.deepdroid.coredev.HelperForCommon;
 import com.deepdroid.coredev.R;
 import com.deepdroid.coredev.devdialog.DevelopmentDialog;
 import com.deepdroid.coredev.devdialog.DevelopmentDialogData;
-import com.deepdroid.coredev.devdialog.uifordevdialog.DevelopmentDialogCustomOptionsListener;
+import com.deepdroid.coredev.devdialog.uifordevdialog.DevelopmentDialogListener;
 
 /**
  * Created by evrenozturk on 13/08/15.
@@ -175,7 +175,7 @@ public class DevUFO extends AppCompatImageView {
     public static void getInstance(final Activity activityContext
             , final ViewGroup rootView
             , final OnClickListener externalOnClickListenerForUFO
-            , final DevelopmentDialogCustomOptionsListener developmentDialogListener) {
+            , final DevelopmentDialogListener developmentDialogListener) {
         try {
             if (developmentDialogListener == null) {
                 Log.println(Log.ASSERT, "DevUFO", "DevelopmentDialogListener cannot be null");
@@ -186,7 +186,7 @@ public class DevUFO extends AppCompatImageView {
                 return;
             }
             if (developmentDialogListener.isDevelopmentVersion()) {
-                DevelopmentDialog.onDevelopmentVersion(activityContext.getApplicationContext());
+                DevelopmentDialog.onDevelopmentVersion(activityContext.getApplicationContext(), developmentDialogListener);
             }
             if (!DevelopmentDialog.isDevelopmentEnabled(activityContext.getApplicationContext())) {
                 Log.println(Log.ASSERT, "DevUFO", "This app is development version but the development mode is disabled manually");
@@ -204,7 +204,7 @@ public class DevUFO extends AppCompatImageView {
                     // SHOW DEVELOPMENT DIALOG
                     DevelopmentDialogData dataTransferObject = new DevelopmentDialogData(developmentDialogListener);
                     DevelopmentDialog developmentDialog = DevelopmentDialog.getInstance(activityContext, dataTransferObject);
-                    developmentDialog.showCustomDialog();
+                    developmentDialog.show();
 
                     // INFORM EVENT TO EXTERNAL LISTENER
                     if (externalOnClickListenerForUFO != null) {

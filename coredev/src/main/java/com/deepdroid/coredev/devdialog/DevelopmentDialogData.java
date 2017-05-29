@@ -1,14 +1,14 @@
 package com.deepdroid.coredev.devdialog;
 
-import com.deepdroid.coredev.devdialog.uifordevdialog.DevelopmentDialogCustomOptionsListener;
+import com.deepdroid.coredev.devdialog.uifordevdialog.DevelopmentDialogListener;
 
 /**
  * Created by evrenozturk on 07.11.2016.
  */
 public class DevelopmentDialogData {
-    public DevelopmentDialogCustomOptionsListener devDialogListener;
+    public DevelopmentDialogListener devDialogListener;
 
-    public DevelopmentDialogData(DevelopmentDialogCustomOptionsListener developmentDialogListener) {
+    public DevelopmentDialogData(DevelopmentDialogListener developmentDialogListener) {
         this.devDialogListener = developmentDialogListener;
     }
 }

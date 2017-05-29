@@ -5,7 +5,7 @@ import java.util.List;
 /**
  * Created by evrenozturk on 07.11.2016.
  */
-public abstract class DevelopmentDialogCustomOptionsListener {
+public abstract class DevelopmentDialogListener {
 
     public abstract boolean isDevelopmentVersion();
     

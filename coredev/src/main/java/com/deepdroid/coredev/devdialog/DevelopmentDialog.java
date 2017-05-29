@@ -28,7 +28,7 @@ import com.deepdroid.coredev.customview.CoreDevListWithoutScroll;
 import com.deepdroid.coredev.devdialog.uifordevdialog.CustomDevelopmentButtonItem;
 import com.deepdroid.coredev.devdialog.uifordevdialog.CustomDevelopmentCheckItem;
 import com.deepdroid.coredev.devdialog.uifordevdialog.CustomDevelopmentItem;
-import com.deepdroid.coredev.devdialog.uifordevdialog.DevelopmentDialogCustomOptionsListener;
+import com.deepdroid.coredev.devdialog.uifordevdialog.DevelopmentDialogListener;
 
 import java.util.List;
 
@@ -43,15 +43,11 @@ public class DevelopmentDialog extends Dialog {
     private static final String DEVELOPMENT_AUTOFILL_MODE = "DEVELOPMENT_AUTOFILL_MODE";
     private static final String DEVELOPMENT_STAY_AWAKE_MODE = "DEVELOPMENT_STAY_AWAKE_MODE";
 
-    private TextView versionName;
-    private TextView valuesTypeName;
-
-    // EDITABLE SERVICE LINK
-    private CorePicker serviceLinkPicker;
+    private View rootV;
+    private TextView versionNameTv;
+    private TextView valuesTypeNameTv;
     private EditText serviceUrlEt;
     private TextView serviceLinkSelectTv;
-
-    // CHECKBOX
     private CheckBox enableDevCb;
     private TextView enableDevTv;
     private CheckBox showUfoCb;
@@ -60,16 +56,12 @@ public class DevelopmentDialog extends Dialog {
     private TextView autoFillTv;
     private CheckBox stayAwakeCb;
     private TextView stayAwakeTv;
-
-    // CUSTOM CHECKS
     private AbsoluteLayout customOptionsArea;
-
-    // BOTTOM BUTTONS
     private TextView restartTv;
     private TextView okTv;
 
-    private DevelopmentDialogCustomOptionsListener devDialogListener;
-
+    private CorePicker serviceLinkPicker;
+    private DevelopmentDialogListener devDialogListener;
 
     public static DevelopmentDialog getInstance(Context context, DevelopmentDialogData developmentDialogData) {
         return new DevelopmentDialog(context, developmentDialogData);
@@ -87,59 +79,67 @@ public class DevelopmentDialog extends Dialog {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        initializeDialog();
+        initializeServiceUrlPicker();
+        fadeInAnimation(rootV);
+
+        // SET TEXTS
+        String currentServiceUrl = initializeServiceUrl(getAppCx(), devDialogListener);
+        serviceUrlEt.setText(currentServiceUrl);
+        serviceUrlEt.setSelection(currentServiceUrl.length() - 1);
+        versionNameTv.setText("v" + HelperForCommon.getVersionName(getAppCx()));
+        valuesTypeNameTv.setText("sw" + getAppCx().getResources().getInteger(R.integer.screen_type_int) + "dp");
+        // SET CH_BOX
+        enableDevCb.setChecked(isDevelopmentEnabled(getAppCx()));
+        showUfoCb.setChecked(isDevelopmentButtonEnabled(getAppCx()));
+        autoFillCb.setChecked(isDevelopmentAutoFillEnabled(getAppCx()));
+        stayAwakeCb.setChecked(isDevelopmentStayAwakeEnabled(getAppCx()));
+        // SET LISTENERS
+        enableDevCb.setOnCheckedChangeListener(mOnCheckChangedListener);
+        showUfoCb.setOnCheckedChangeListener(mOnCheckChangedListener);
+        autoFillCb.setOnCheckedChangeListener(mOnCheckChangedListener);
+        stayAwakeCb.setOnCheckedChangeListener(mOnCheckChangedListener);
+        serviceLinkSelectTv.setOnClickListener(mOnClickListener);
+        enableDevTv.setOnClickListener(mOnClickListener);
+        showUfoTv.setOnClickListener(mOnClickListener);
+        autoFillTv.setOnClickListener(mOnClickListener);
+        stayAwakeTv.setOnClickListener(mOnClickListener);
+        restartTv.setOnClickListener(mOnClickListener);
+        okTv.setOnClickListener(mOnClickListener);
+
+        initializeCustomDevelopmentItems();
+    }
+
+    // =========================================================================================
+    // INITIALIZER METHODS
+    private void initializeDialog() {
         setCancelable(true);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.dialog_development);
 
-        if (getWindow() != null) {
-            getWindow().setBackgroundDrawable(null);
-        }
+        if (getWindow() != null) { getWindow().setBackgroundDrawable(null); }
 
-        View root = findViewById(R.id.development_root);
-        fadeInAnimation(root);
-
-        // EDITABLE SERVICE LINK
-        versionName = (TextView) findViewById(R.id.development_application_version);
+        rootV = findViewById(R.id.development_root);
+        versionNameTv = (TextView) findViewById(R.id.development_application_version);
         serviceUrlEt = (EditText) findViewById(R.id.development_service_link_value);
         serviceLinkSelectTv = (TextView) findViewById(R.id.development_service_link_select);
+        valuesTypeNameTv = (TextView) findViewById(R.id.development_values_type);
+        enableDevTv = (TextView) findViewById(R.id.development_mode_text);
+        enableDevCb = (CheckBox) findViewById(R.id.development_mode_check);
+        showUfoTv = (TextView) findViewById(R.id.development_ufo_text);
+        showUfoCb = (CheckBox) findViewById(R.id.development_ufo_check);
+        autoFillTv = (TextView) findViewById(R.id.development_auto_fill_text);
+        autoFillCb = (CheckBox) findViewById(R.id.development_auto_fill_check);
+        stayAwakeTv = (TextView) findViewById(R.id.development_stay_awake_text);
+        stayAwakeCb = (CheckBox) findViewById(R.id.development_stay_awake_check);
+        customOptionsArea = (AbsoluteLayout) findViewById(R.id.development_custom_checks_area);
+        restartTv = (TextView) findViewById(R.id.development_restart_app);
+        okTv = (TextView) findViewById(R.id.development_ok);
+    }
 
-        valuesTypeName = (TextView) findViewById(R.id.development_values_type);
-
-        // SET SERVICE URL
-        String currentServiceUrl = getCurrentServiceUrl(getContext());
-        if (TextUtils.isEmpty(currentServiceUrl)) {
-            currentServiceUrl = devDialogListener.getCurrentServiceUrl();
-        }
-        serviceUrlEt.setText(currentServiceUrl);
-        serviceUrlEt.setSelection(currentServiceUrl.length() - 1);
-        devDialogListener.onServiceUrlChanged(currentServiceUrl);
-
-        // AWAY SERVERS
-        serviceLinkPicker = new CorePicker(getContext(), devDialogListener.getServiceUrlList(), new CorePickerListener() {
-            @Override
-            public void onCorePickerCanceled(int selectedIndex) {}
-
-            @Override
-            public void onCorePickerConfirmed(int selectedIndex) {
-                String selectedServiceUrl = devDialogListener.getServiceUrlAt(selectedIndex);
-
-                if (!TextUtils.isEmpty(selectedServiceUrl)) {
-                    // Set current selection
-                    serviceUrlEt.setText(selectedServiceUrl);
-                    setCurrentServiceUrl(getContext(), selectedServiceUrl);
-
-                    // restart the application
-                    devDialogListener.onServiceUrlChanged(selectedServiceUrl);
-                    HelperForPref.setString(getAppCx(), CURRENT_SERVICE_URL, selectedServiceUrl);
-                    new Handler().post(new Runnable() {
-                        @Override
-                        public void run() { HelperForCommon.restartWithInit(getAppCx()); }
-                    });
-                } else {
-                    Toast.makeText(getAppCx(), "Service link cannot be empty!", Toast.LENGTH_LONG).show();
-                }
-            }
-        }) {
+    private void initializeServiceUrlPicker() {
+        serviceLinkPicker = new CorePicker(getContext(), devDialogListener.getServiceUrlList(), corePickerListener) {
             @Override
             protected void getPickerConfiguration(CorePickerConfiguration pickerConfiguration) {
                 pickerConfiguration.set(
@@ -154,48 +154,66 @@ public class DevelopmentDialog extends Dialog {
                 );
             }
         };
-
-        // CHECKBOX
-        enableDevTv = (TextView) findViewById(R.id.development_mode_text);
-        enableDevCb = (CheckBox) findViewById(R.id.development_mode_check);
-        enableDevCb.setChecked(isDevelopmentEnabled(getAppCx()));
-        enableDevCb.setOnCheckedChangeListener(mOnCheckChangedListener);
-
-        showUfoTv = (TextView) findViewById(R.id.development_ufo_text);
-        showUfoCb = (CheckBox) findViewById(R.id.development_ufo_check);
-        showUfoCb.setChecked(isDevelopmentButtonEnabled(getAppCx()));
-        showUfoCb.setOnCheckedChangeListener(mOnCheckChangedListener);
-
-        autoFillTv = (TextView) findViewById(R.id.development_auto_fill_text);
-        autoFillCb = (CheckBox) findViewById(R.id.development_auto_fill_check);
-        autoFillCb.setChecked(isDevelopmentAutoFillEnabled(getAppCx()));
-        autoFillCb.setOnCheckedChangeListener(mOnCheckChangedListener);
-
-        stayAwakeTv = (TextView) findViewById(R.id.development_stay_awake_text);
-        stayAwakeCb = (CheckBox) findViewById(R.id.development_stay_awake_check);
-        stayAwakeCb.setChecked(isDevelopmentStayAwakeEnabled(getAppCx()));
-        stayAwakeCb.setOnCheckedChangeListener(mOnCheckChangedListener);
-
-        // CUSTOM CHECKS AREA
-        customOptionsArea = (AbsoluteLayout) findViewById(R.id.development_custom_checks_area);
-
-        // BOTTOM BUTTONS
-        restartTv = (TextView) findViewById(R.id.development_restart_app);
-        okTv = (TextView) findViewById(R.id.development_ok);
-
-        serviceLinkSelectTv.setOnClickListener(mOnClickListener);
-        enableDevTv.setOnClickListener(mOnClickListener);
-        showUfoTv.setOnClickListener(mOnClickListener);
-        autoFillTv.setOnClickListener(mOnClickListener);
-        stayAwakeTv.setOnClickListener(mOnClickListener);
-        restartTv.setOnClickListener(mOnClickListener);
-        okTv.setOnClickListener(mOnClickListener);
-
-        versionName.setText("v" + HelperForCommon.getVersionName(getAppCx()));
-        valuesTypeName.setText("sw" + getAppCx().getResources().getInteger(R.integer.screen_type_int) + "dp");
-
-        initializeCustomDevelopmentItems();
     }
+
+    private void fadeInAnimation(final View rootView) {
+        Animation scaleAnimationP1 = new ScaleAnimation(0f, 1f, 0.01f, 0.01f, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
+        scaleAnimationP1.setDuration(400);
+        scaleAnimationP1.setFillEnabled(false);
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                // We used handler because animation listener has a bug & it will not work on some 4... versions
+                final Animation scaleAnimationP2 = new ScaleAnimation(1f, 1f, 0.01f, 1f, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
+                scaleAnimationP2.setDuration(400);
+                scaleAnimationP2.setFillEnabled(false);
+                rootView.clearAnimation();
+                rootView.startAnimation(scaleAnimationP2);
+            }
+        }, 390);
+        rootView.startAnimation(scaleAnimationP1);
+    }
+
+    @Override
+    public void show() {
+        try { super.show(); } catch (WindowManager.BadTokenException e) {
+            Log.e("BadToken", "DevDialog can not work with applicationContext, try using directly an activity as a context");
+        }
+    }
+    // INITIALIZER METHODS
+    // =========================================================================================
+
+    // =========================================================================================
+    // LISTENERS
+    private final CorePickerListener corePickerListener = new CorePickerListener() {
+        @Override
+        public void onCorePickerCanceled(int selectedIndex) {}
+
+        @Override
+        public void onCorePickerConfirmed(int selectedIndex) {
+            if (devDialogListener == null) {
+                Log.println(Log.ASSERT, "DevelopmentDialog", "DevDialogListener was null");
+                return;
+            }
+
+            String selectedServiceUrl = devDialogListener.getServiceUrlAt(selectedIndex);
+            if (!TextUtils.isEmpty(selectedServiceUrl)) {
+                // Set current selection
+                serviceUrlEt.setText(selectedServiceUrl);
+                setCurrentServiceUrl(getAppCx(), selectedServiceUrl);
+
+                // restart the application
+                devDialogListener.onServiceUrlChanged(selectedServiceUrl);
+                HelperForPref.setString(getAppCx(), CURRENT_SERVICE_URL, selectedServiceUrl);
+                new Handler().post(new Runnable() {
+                    @Override
+                    public void run() { HelperForCommon.restartWithInit(getAppCx()); }
+                });
+            } else {
+                Toast.makeText(getAppCx(), "Service link cannot be empty!", Toast.LENGTH_LONG).show();
+            }
+        }
+    };
 
     private final View.OnClickListener mOnClickListener = new View.OnClickListener() {
         @Override
@@ -238,9 +256,11 @@ public class DevelopmentDialog extends Dialog {
             }
         }
     };
+    // LISTENERS
+    // =========================================================================================
 
     // =========================================================================================
-    // CUSTOM CHECK LIST
+    // CUSTOM DEVELOPMENT ITEMS
     private void initializeCustomDevelopmentItems() {
         if (devDialogListener == null) {
             return;
@@ -316,51 +336,11 @@ public class DevelopmentDialog extends Dialog {
             }
         }
     }
-    // CUSTOM CHECK LIST
+    // CUSTOM DEVELOPMENT ITEMS
     // =============================================================================================
-
-
-    public void showCustomDialog() {
-        // If you get a bad token exception. Then you either you've inflated a layout with the ApplicationContext or you've created a CorePicker with ApplicationContext.
-        // In that case use directly the activity to inflate or create the picker.
-        try {
-            show();
-        } catch (WindowManager.BadTokenException e) {
-            Log.e("BadToken", "CorePicker can not work with applicationContext, try using directly an activity as context");
-        }
-    }
-
-
-    private void fadeInAnimation(final View rootView) {
-        Animation scaleAnimationP1 = new ScaleAnimation(0f, 1f, 0.01f, 0.01f, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
-        scaleAnimationP1.setDuration(400);
-        scaleAnimationP1.setFillEnabled(false);
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                // We used handler because animation listener has a bug & it will not work on some 4... versions
-                final Animation scaleAnimationP2 = new ScaleAnimation(1f, 1f, 0.01f, 1f, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
-                scaleAnimationP2.setDuration(400);
-                scaleAnimationP2.setFillEnabled(false);
-                rootView.clearAnimation();
-                rootView.startAnimation(scaleAnimationP2);
-            }
-        }, 390);
-        rootView.startAnimation(scaleAnimationP1);
-    }
-
 
     // =============================================================================================
     // DEFAULT OPTIONS SET & QUERY METHODS
-    public static void onDevelopmentVersion(Context applicationContext) {
-        if (HelperForPref.getInt(applicationContext, DEVELOPMENT_MODE, 0) == 0) {
-            setDevelopmentEnabled(applicationContext, true);
-        }
-        if (HelperForPref.getInt(applicationContext, DEVELOPMENT_BUTTON_MODE, 0) == 0) {
-            setDevelopmentButtonEnabled(applicationContext, true);
-        }
-    }
-
     public static String getCurrentServiceUrl(Context applicationContext) {
         return HelperForPref.getStringValue(applicationContext, CURRENT_SERVICE_URL, "");
     }
@@ -401,6 +381,32 @@ public class DevelopmentDialog extends Dialog {
     private static void setDevelopmentStayAwakeEnabled(Context applicationContext, boolean newValue) {
         HelperForPref.setBoolean(applicationContext, DEVELOPMENT_STAY_AWAKE_MODE, newValue);
     }
+
     // DEFAULT OPTIONS SET & QUERY METHODS
+    // =============================================================================================
+
+    // =============================================================================================
+    // STATIC INITIALIZER
+    public static void onDevelopmentVersion(Context applicationContext, DevelopmentDialogListener devDialogListener) {
+        initializeServiceUrl(applicationContext, devDialogListener);
+        if (HelperForPref.getInt(applicationContext, DEVELOPMENT_MODE, 0) == 0) {
+            setDevelopmentEnabled(applicationContext, true);
+        }
+        if (HelperForPref.getInt(applicationContext, DEVELOPMENT_BUTTON_MODE, 0) == 0) {
+            setDevelopmentButtonEnabled(applicationContext, true);
+        }
+    }
+
+    private static String initializeServiceUrl(Context context, DevelopmentDialogListener devDialogListener) {
+        String currentServiceUrl = getCurrentServiceUrl(context);
+        if (devDialogListener == null) { return currentServiceUrl; }
+
+        if (TextUtils.isEmpty(currentServiceUrl)) {
+            currentServiceUrl = devDialogListener.getCurrentServiceUrl();
+        }
+        devDialogListener.onServiceUrlChanged(currentServiceUrl);
+        return currentServiceUrl;
+    }
+    // STATIC INITIALIZER
     // =============================================================================================
 }
