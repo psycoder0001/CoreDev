@@ -346,11 +346,11 @@ public class DevelopmentDialog extends Dialog {
     }
 
     public static boolean isDevelopmentEnabled(Context applicationContext) {
-        return HelperForPref.getInt(applicationContext, DEVELOPMENT_MODE, 0) == 1;
+        return HelperForPref.getInt(applicationContext, DEVELOPMENT_MODE, 1) == 1;
     }
 
     public static boolean isDevelopmentButtonEnabled(Context applicationContext) {
-        return HelperForPref.getInt(applicationContext, DEVELOPMENT_BUTTON_MODE, 0) == 1;
+        return HelperForPref.getInt(applicationContext, DEVELOPMENT_BUTTON_MODE, 1) == 1;
     }
 
     public static boolean isDevelopmentAutoFillEnabled(Context applicationContext) {
