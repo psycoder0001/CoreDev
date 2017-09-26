@@ -248,7 +248,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/development_options_footer_line"
-                android:minHeight="25dp"/>
+                android:minHeight="25dp"
+                android:paddingBottom="25dp"/>
         </RelativeLayout>
     </ScrollView>
 

@@ -268,7 +268,7 @@ public class DevelopmentDialog extends Dialog {
         List<CustomDevelopmentItem> customOptionsList = devDialogListener.getCustomOptionsList();
         customOptionsArea.removeAllViews();
         CustomDevelopmentList customCheckList = new CustomDevelopmentList(getAppCx());
-        customCheckList.inflateViews(getAppCx(), customOptionsList, R.layout.item_custom_development, (int) HelperForCommon.dpToPx(1, getAppCx()));
+        customCheckList.inflateViews(getAppCx(), customOptionsList, R.layout.item_custom_development, 0);
         customOptionsArea.addView(customCheckList);
     }
 
