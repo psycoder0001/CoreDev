@@ -37,6 +37,12 @@ android {
         abortOnError false
     }
 
+    defaultConfig {
+        minSdkVersion project.ANDROID_MIN_SDK_VERSION
+        targetSdkVersion project.ANDROID_TARGET_SDK_VERSION
+        versionCode Integer.valueOf(project.CURRENT_MAJOR_VERSION + project.CURRENT_MINOR_VERSION + project.CURRENT_UPLOAD_VERSION)
+    }
+
     buildTypes {
         release {
             minifyEnabled false
