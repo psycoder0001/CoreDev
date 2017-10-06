@@ -11,5 +11,5 @@ allprojects {
 
 2. Add next line in modules build.gradle file:
 ```
-    compile 'com.deepdroid.coredev:coredev:1.0.4'
+    implementation 'com.deepdroid.coredev:coredev:1.0.4'
 ```
