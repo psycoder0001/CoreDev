@@ -1,1 +1,1 @@
-include ':coredev'
+include ':coredev', ':testmodule'

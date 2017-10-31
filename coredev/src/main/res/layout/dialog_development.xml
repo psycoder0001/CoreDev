@@ -11,7 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:text="Development Options"
+        android:text="@string/development_options"
         android:textColor="@color/dev_clr_code_green"
         android:textSize="15sp"
         android:textStyle="bold"
@@ -32,7 +32,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:text="versionName"
+            android:text="@string/dev_dummy_versionname"
             android:textColor="@color/dev_clr_code_green"
             android:textSize="12sp"
             android:textStyle="bold"
@@ -45,7 +45,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:text="ScreenType"
+            android:text="@string/dev_dummy_screentype"
             android:textColor="@color/dev_clr_code_green"
             android:textSize="12sp"
             android:textStyle="bold"
@@ -62,54 +62,70 @@
             android:layout_height="wrap_content">
 
             <!--SERVICE LINK CHANGE OPTION-->
-            <EditText
-                android:id="@+id/development_service_link_value"
+            <RelativeLayout
+                android:id="@+id/development_service_link_area"
                 android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:layout_marginBottom="2.5dp"
+                android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
                 android:background="@drawable/dev_bg_button_transparent"
-                android:gravity="center_vertical"
-                android:paddingLeft="5dp"
-                android:paddingRight="5dp"
-                android:text="Service Url"
-                android:textColor="@color/dev_clr_code_green"
-                android:textSize="12.5dp"
-                android:textStyle="bold"
-                android:typeface="monospace"/>
+                android:minHeight="75dp"
+                android:paddingBottom="16dp"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:paddingTop="15dp">
+                <!--
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:orientation="vertical">
+
+                                    <include layout="@layout/item_url_selection"/>
+
+                                    <include layout="@layout/item_url_selection"/>
+
+                                    <include layout="@layout/item_url_selection"/>
+
+                                    <include layout="@layout/item_url_selection"/>
+                                </LinearLayout>
+                -->
+            </RelativeLayout>
 
             <TextView
                 android:id="@+id/development_service_link_header"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
+                android:layout_marginStart="10dp"
                 android:layout_marginTop="11dp"
                 android:background="@drawable/dev_bg_button_transparent"
                 android:paddingBottom="2dp"
                 android:paddingLeft="10dp"
                 android:paddingRight="10dp"
                 android:paddingTop="2dp"
-                android:text="SELECT SERVICE LINK"
+                android:text="@string/select_service_link"
                 android:textColor="@color/dev_clr_code_green"
                 android:textSize="12.5dp"
                 android:textStyle="bold"
                 android:typeface="monospace"/>
 
             <TextView
-                android:id="@+id/development_service_link_select"
+                android:id="@+id/development_service_link_apply_selection"
                 android:layout_width="wrap_content"
-                android:layout_height="25dp"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
                 android:layout_alignParentRight="true"
-                android:layout_below="@id/development_service_link_value"
+                android:layout_below="@id/development_service_link_area"
+                android:layout_marginEnd="10dp"
                 android:layout_marginRight="10dp"
                 android:layout_marginTop="-15dp"
                 android:background="@drawable/dev_bg_button"
                 android:gravity="center"
+                android:padding="5dp"
                 android:paddingLeft="10dp"
                 android:paddingRight="10dp"
-                android:text="SELECT SERVICE LINK"
+                android:text="@string/apply_selection"
                 android:textColor="@color/dev_clr_code_green"
-                android:textSize="10sp"
+                android:textSize="12sp"
                 android:textStyle="bold"
                 android:typeface="monospace"/>
 
@@ -118,7 +134,7 @@
                 android:id="@+id/development_options_header"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/development_service_link_select"
+                android:layout_below="@id/development_service_link_apply_selection"
                 android:layout_marginTop="20dp"
                 android:text="@string/txt_development_default_options"
                 android:textColor="@color/dev_clr_code_green"
@@ -148,9 +164,11 @@
                 android:layout_alignBottom="@id/development_mode_check"
                 android:layout_alignTop="@id/development_mode_check"
                 android:layout_marginLeft="7.5dp"
+                android:layout_marginStart="7.5dp"
+                android:layout_toEndOf="@id/development_mode_check"
                 android:layout_toRightOf="@id/development_mode_check"
                 android:gravity="center_vertical"
-                android:text="Development Mode Enabled"
+                android:text="@string/development_mode_enabled"
                 android:textColor="@color/dev_clr_code_green"
                 android:textSize="12.5dp"
                 android:textStyle="bold"
@@ -169,9 +187,11 @@
                 android:layout_alignBottom="@id/development_ufo_check"
                 android:layout_alignTop="@id/development_ufo_check"
                 android:layout_marginLeft="7.5dp"
+                android:layout_marginStart="7.5dp"
+                android:layout_toEndOf="@id/development_ufo_check"
                 android:layout_toRightOf="@id/development_ufo_check"
                 android:gravity="center_vertical"
-                android:text="Development Button Visible"
+                android:text="@string/development_button_visible"
                 android:textColor="@color/dev_clr_code_green"
                 android:textSize="12.5dp"
                 android:textStyle="bold"
@@ -191,9 +211,11 @@
                 android:layout_alignBottom="@id/development_auto_fill_check"
                 android:layout_alignTop="@id/development_auto_fill_check"
                 android:layout_marginLeft="7.5dp"
+                android:layout_marginStart="7.5dp"
+                android:layout_toEndOf="@id/development_auto_fill_check"
                 android:layout_toRightOf="@id/development_auto_fill_check"
                 android:gravity="center_vertical"
-                android:text="Editable Area Auto-fill Enabled"
+                android:text="@string/editable_area_auto_fill_enabled"
                 android:textColor="@color/dev_clr_code_green"
                 android:textSize="12.5dp"
                 android:textStyle="bold"
@@ -213,9 +235,11 @@
                 android:layout_alignBottom="@id/development_stay_awake_check"
                 android:layout_alignTop="@id/development_stay_awake_check"
                 android:layout_marginLeft="7.5dp"
+                android:layout_marginStart="7.5dp"
+                android:layout_toEndOf="@id/development_stay_awake_check"
                 android:layout_toRightOf="@id/development_stay_awake_check"
                 android:gravity="center_vertical"
-                android:text="Force Device to Stay Awake"
+                android:text="@string/force_device_to_stay_awake"
                 android:textColor="@color/dev_clr_code_green"
                 android:textSize="12.5dp"
                 android:textStyle="bold"
@@ -243,7 +267,7 @@
                 android:layout_marginTop="10dp"
                 android:background="@color/dev_clr_code_green"/>
 
-            <AbsoluteLayout
+            <RelativeLayout
                 android:id="@+id/development_custom_checks_area"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -270,7 +294,7 @@
             android:layout_height="25dp"
             android:background="@drawable/dev_bg_button"
             android:gravity="center"
-            android:text="RESTART APP >"
+            android:text="@string/restart_app"
             android:textColor="@color/dev_clr_code_green"
             android:textSize="12.5dp"
             android:textStyle="bold"
@@ -284,7 +308,7 @@
             android:layout_height="25dp"
             android:background="@drawable/dev_bg_button"
             android:gravity="center"
-            android:text="OK"
+            android:text="@string/ok"
             android:textColor="@color/dev_clr_code_green"
             android:textSize="12.5dp"
             android:textStyle="bold"

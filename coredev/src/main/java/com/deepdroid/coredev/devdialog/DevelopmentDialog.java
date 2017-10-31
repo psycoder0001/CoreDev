@@ -11,10 +11,10 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.view.animation.Animation;
 import android.view.animation.ScaleAnimation;
-import android.widget.AbsoluteLayout;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -46,7 +46,7 @@ public class DevelopmentDialog extends Dialog {
     private View rootV;
     private TextView versionNameTv;
     private TextView valuesTypeNameTv;
-    private EditText serviceUrlEt;
+    private RelativeLayout serviceLinkArea;
     private TextView serviceLinkSelectTv;
     private CheckBox enableDevCb;
     private TextView enableDevTv;
@@ -56,7 +56,7 @@ public class DevelopmentDialog extends Dialog {
     private TextView autoFillTv;
     private CheckBox stayAwakeCb;
     private TextView stayAwakeTv;
-    private AbsoluteLayout customOptionsArea;
+    private RelativeLayout customOptionsArea;
     private TextView restartTv;
     private TextView okTv;
 
@@ -122,8 +122,8 @@ public class DevelopmentDialog extends Dialog {
 
         rootV = findViewById(R.id.development_root);
         versionNameTv = (TextView) findViewById(R.id.development_application_version);
-        serviceUrlEt = (EditText) findViewById(R.id.development_service_link_value);
-        serviceLinkSelectTv = (TextView) findViewById(R.id.development_service_link_select);
+        serviceLinkArea = findViewById(R.id.development_service_link_area);
+        serviceLinkSelectTv = (TextView) findViewById(R.id.development_service_link_apply_selection);
         valuesTypeNameTv = (TextView) findViewById(R.id.development_values_type);
         enableDevTv = (TextView) findViewById(R.id.development_mode_text);
         enableDevCb = (CheckBox) findViewById(R.id.development_mode_check);
@@ -133,7 +133,7 @@ public class DevelopmentDialog extends Dialog {
         autoFillCb = (CheckBox) findViewById(R.id.development_auto_fill_check);
         stayAwakeTv = (TextView) findViewById(R.id.development_stay_awake_text);
         stayAwakeCb = (CheckBox) findViewById(R.id.development_stay_awake_check);
-        customOptionsArea = (AbsoluteLayout) findViewById(R.id.development_custom_checks_area);
+        customOptionsArea = (RelativeLayout) findViewById(R.id.development_custom_checks_area);
         restartTv = (TextView) findViewById(R.id.development_restart_app);
         okTv = (TextView) findViewById(R.id.development_ok);
     }
