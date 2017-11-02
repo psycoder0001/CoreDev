@@ -199,7 +199,7 @@ public class DevUFO extends AppCompatImageView {
             }
 
             final SelectableServiceUrlData selectableServiceUrlData = developmentDialogListener.getServiceUrlLists();
-            DevelopmentDialog.notifyUrlSelectionChangedForAllItems(selectableServiceUrlData, developmentDialogListener);
+            DevelopmentDialog.notifyServiceUrlSelectionChangedForAllItems(selectableServiceUrlData, developmentDialogListener);
 
             DevUFO devUFO = new DevUFO(activityContext);
             devUFO.setOnClickListener(new OnClickListener() {

@@ -43,20 +43,23 @@
         android:typeface="monospace"
         tools:text="Title"/>
 
-    <TextView
+    <EditText
         android:id="@+id/development_service_link_value"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="15dp"
         android:layout_toLeftOf="@id/development_service_link_change"
         android:layout_toStartOf="@id/development_service_link_change"
+        android:background="@android:color/transparent"
         android:ellipsize="end"
+        android:hint="@string/url_hint"
         android:maxLines="1"
         android:paddingBottom="10dp"
         android:paddingTop="10dp"
         android:singleLine="true"
         android:text="@string/dev_dummy_service_url"
         android:textColor="@color/dev_clr_code_green"
+        android:textColorHint="@color/dev_clr_code_green_hint"
         android:textSize="12.1dp"
         android:textStyle="italic"
         android:typeface="monospace"/>

@@ -35,6 +35,14 @@ public class SelectableServiceUrlList extends CoreDevListWithoutScroll {
         // Nothing happens
     }
 
+    public String geCustomUrlValueAt(int index) {
+        ViewHolder viewHolder = getViewHolderAt(index);
+        if (viewHolder == null) {
+            return "";
+        }
+        return viewHolder.urlTv.getText().toString();
+    }
+
     private class ViewHolder {
         private TextView titleTv;
         private TextView urlTv;

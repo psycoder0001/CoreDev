@@ -15,4 +15,5 @@
     <string name="dev_dummy_screentype">ScreenType</string>
     <string name="dev_dummy_versionname">versionName</string>
     <string name="development_options">Development Options</string>
+    <string name="url_hint">Type your url here</string>
 </resources>

@@ -4,6 +4,7 @@ import android.app.Dialog;
 import android.content.Context;
 import android.os.Bundle;
 import android.os.Handler;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.view.Window;
@@ -173,7 +174,7 @@ public class DevelopmentDialog extends Dialog {
                 return;
             }
             // Notify if previous selection exist.
-            notifyUrlSelectionChangedForAllItems(selectableServiceUrlData, devDialogListener);
+            notifyServiceUrlSelectionChangedForAllItems(selectableServiceUrlData, devDialogListener);
         }
 
         if (forceRecreateUi) {
@@ -223,12 +224,7 @@ public class DevelopmentDialog extends Dialog {
                 initializeSelectableServiceUrlList(true);
                 Log.println(Log.ASSERT, TAG, "All service url selections are now cleared");
             } else if (view == applyServiceLinkSelectionsTv) {
-                new Handler().post(new Runnable() {
-                    @Override
-                    public void run() {
-                        HelperForCommon.restartWithInit(getAppCx());
-                    }
-                });
+                applyServiceUrlSelections();
             } else if (view == enableDevTv) {
                 enableDevCb.performClick();
             } else if (view == showUfoTv) {
@@ -353,7 +349,34 @@ public class DevelopmentDialog extends Dialog {
         serviceLinkPicker.showCustomDialog();
     }
 
-    public static void notifyUrlSelectionChangedForAllItems(SelectableServiceUrlData selectableServiceUrlData, DevelopmentDialogListener devDialogListener) {
+    public void applyServiceUrlSelections() {
+        if (selectableServiceUrlData == null || selectableServiceUrlData.selectableServiceUrlItemList == null) {
+            restartWithDelay();
+        }
+        int index = 0;
+        for (SelectableServiceUrlItem selectableServiceUrlItem : selectableServiceUrlData.selectableServiceUrlItemList) {
+            UrlSelectionItem urlSelectionItem = selectableServiceUrlItem.getSelectionItem();
+            String customUrlValue = selectableServiceUrlList.geCustomUrlValueAt(index);
+            if (urlSelectionItem == null || TextUtils.isEmpty(customUrlValue)) {
+                Log.println(Log.ASSERT, TAG, "SelectionItem or customUrlValue was NULL. Ignoring onSelectionChanged for item : " + selectableServiceUrlItem.itemId);
+                continue;
+            }
+            HelperForPref.putUrlSelection(getAppCx(), urlSelectionItem);
+            index++;
+        }
+        restartWithDelay();
+    }
+
+    private void restartWithDelay() {
+        new Handler().post(new Runnable() {
+            @Override
+            public void run() {
+                HelperForCommon.restartWithInit(getAppCx());
+            }
+        });
+    }
+
+    public static void notifyServiceUrlSelectionChangedForAllItems(SelectableServiceUrlData selectableServiceUrlData, DevelopmentDialogListener devDialogListener) {
         for (SelectableServiceUrlItem selectableServiceUrlItem : selectableServiceUrlData.selectableServiceUrlItemList) {
             if (selectableServiceUrlItem.getSelectionItem() == null) {
                 Log.println(Log.ASSERT, TAG, "SelectionItem was NULL. Ignoring onSelectionChanged for item : " + selectableServiceUrlItem.itemId);
