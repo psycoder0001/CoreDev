@@ -109,6 +109,25 @@
                 android:typeface="monospace"/>
 
             <TextView
+                android:id="@+id/development_service_link_clear_selection"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/development_service_link_area"
+                android:layout_marginLeft="10dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="-10dp"
+                android:background="@drawable/dev_bg_button"
+                android:gravity="center"
+                android:padding="5dp"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:text="@string/clear_selection"
+                android:textColor="@color/dev_clr_code_green"
+                android:textSize="12sp"
+                android:textStyle="bold"
+                android:typeface="monospace"/>
+
+            <TextView
                 android:id="@+id/development_service_link_apply_selection"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

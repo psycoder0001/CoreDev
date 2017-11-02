@@ -1,6 +1,7 @@
 <resources>
     <string name="txt_development_custom_options_header">CUSTOM DEVELOPMENT OPTIONS</string>
     <string name="txt_development_default_options">DEVELOPMENT OPTIONS</string>
+    <string name="clear_selection">CLEAR SELECTION</string>
     <string name="apply_selection">APPLY SELECTION</string>
     <string name="select_service_link">SELECT SERVICE LINK</string>
     <string name="change">Change</string>

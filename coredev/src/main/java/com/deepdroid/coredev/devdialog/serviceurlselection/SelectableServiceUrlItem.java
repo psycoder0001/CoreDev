@@ -1,7 +1,10 @@
 package com.deepdroid.coredev.devdialog.serviceurlselection;
 
+import android.content.Context;
 import android.text.TextUtils;
 import android.util.Log;
+
+import com.deepdroid.coredev.HelperForPref;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,7 +15,6 @@ import java.util.List;
 
 public class SelectableServiceUrlItem {
     private static final String TAG = SelectableServiceUrlItem.class.getSimpleName();
-    public static final int ILLEGAL_SELECTION_RESULT = -1;
 
     public final int itemId;
     public int currentSelection = 0;
@@ -43,24 +45,46 @@ public class SelectableServiceUrlItem {
         return serviceUrlList.get(currentSelection);
     }
 
-    public int setSelectedIndex(int newSelectionIndex) {
+    public UrlSelectionItem setSelectedIndex(int newSelectionIndex) {
         if (!isIndexAvailable(newSelectionIndex)) {
             Log.println(Log.ASSERT, TAG, "Failed to set selection! Current selection is : " + currentSelection);
-            return ILLEGAL_SELECTION_RESULT;
+            return null;
         }
         currentSelection = newSelectionIndex;
-        return itemId;
+        return getSelectionItem();
     }
 
     private boolean isIndexAvailable(int index) {
         if (serviceUrlList == null || serviceUrlList.isEmpty()) {
-            Log.println(Log.ASSERT, TAG, "Selectable service url list was empty!");
+            Log.println(Log.ASSERT, TAG, "Selectable service selectionValue list was empty!");
             return false;
         }
-        if (currentSelection < 0 || currentSelection >= serviceUrlList.size()) {
-            Log.println(Log.ASSERT, TAG, "Current selection index (" + currentSelection + ") was illegal! - List size is:" + serviceUrlList.size());
+        if (index < 0 || index >= serviceUrlList.size()) {
+            Log.println(Log.ASSERT, TAG, "Current selection index (" + index + ") was illegal! - List size is:" + serviceUrlList.size());
             return false;
         }
+        return true;
+    }
+
+    public UrlSelectionItem getSelectionItem() {
+        String selectionValue = getSelectedUrl();
+        if (TextUtils.isEmpty(selectionValue)) {
+            Log.println(Log.ASSERT, TAG, "Selection value was empty");
+            return null;
+        }
+        return new UrlSelectionItem(itemId, currentSelection, selectionValue);
+    }
+
+    boolean loadSelection(Context appCx) {
+        UrlSelectionItem selectionItem = HelperForPref.getUrlSelection(appCx, itemId);
+        if (selectionItem == null) {
+            return false;
+        }
+        currentSelection = selectionItem.selectionIndex;
+        if (serviceUrlList == null || serviceUrlList.isEmpty() || selectionItem.selectionIndex < 0 || selectionItem.selectionIndex >= serviceUrlList.size()) {
+            return false;
+        }
+        serviceUrlList.set(currentSelection, selectionItem.selectionValue);
         return true;
     }
 }

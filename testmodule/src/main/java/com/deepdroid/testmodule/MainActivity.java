@@ -10,6 +10,7 @@ import com.deepdroid.coredev.devdialog.DevelopmentDialog;
 import com.deepdroid.coredev.devdialog.DevelopmentDialogListener;
 import com.deepdroid.coredev.devdialog.serviceurlselection.SelectableServiceUrlData;
 import com.deepdroid.coredev.devdialog.serviceurlselection.SelectableServiceUrlItem;
+import com.deepdroid.coredev.devdialog.serviceurlselection.UrlSelectionItem;
 import com.deepdroid.coredev.devdialog.uifordevdialog.CustomDevelopmentCheckItem;
 import com.deepdroid.coredev.devdialog.uifordevdialog.CustomDevelopmentItem;
 import com.deepdroid.coredev.devufo.DevUFO;
@@ -29,7 +30,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     protected void initDevelopmentDialog(ViewGroup rootView) {
-        DevUFO.getInstance(this, rootView, null, getDevelopmentDialogCustomOptionHelper());
+        DevUFO.attachUfo(this, rootView, null, getDevelopmentDialogCustomOptionHelper());
         if (DevelopmentDialog.isDevelopmentEnabled(getApplicationContext()) && DevelopmentDialog.isDevelopmentStayAwakeEnabled(getApplicationContext())) {
             getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);   // Force device awake & screen on.
         }
@@ -55,7 +56,8 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public SelectableServiceUrlData getServiceUrlLists() {
-                return new SelectableServiceUrlData(new SelectableServiceUrlItem(0, 0, "UrlItemList 0",
+                return new SelectableServiceUrlData(getApplicationContext()
+                        , new SelectableServiceUrlItem(0, 0, "UrlItemList 0",
                         "TestUrl Grp0 - Item0"
                         , "TestUrl Grp0 - Item1"
                         , "TestUrl Grp0 - Item2"
@@ -74,11 +76,11 @@ public class MainActivity extends AppCompatActivity {
             }
 
             @Override
-            public void onSelectionChanged(int newSelectionItemId, int newSelectionIndex, String newSelectionValue) {
-                Log.println(Log.ASSERT, TAG, "Service url changed : "
-                        + "\nitemID         : " + newSelectionItemId
-                        + "\nSelectionIndex : " + newSelectionIndex
-                        + "\nSelectionValue : " + newSelectionValue
+            public void onSelectionChanged(UrlSelectionItem selectionItem) {
+                Log.println(Log.ASSERT, TAG, "Service selectionValue changed : "
+                        + "\nitemID         : " + selectionItem.itemId
+                        + "\nSelectionIndex : " + selectionItem.selectionIndex
+                        + "\nSelectionValue : " + selectionItem.selectionValue
                 );
             }
 

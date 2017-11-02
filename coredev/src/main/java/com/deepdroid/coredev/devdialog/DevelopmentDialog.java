@@ -22,7 +22,9 @@ import com.deepdroid.coredev.corepicker.CorePicker;
 import com.deepdroid.coredev.corepicker.CorePickerConfiguration;
 import com.deepdroid.coredev.corepicker.CorePickerListener;
 import com.deepdroid.coredev.devdialog.serviceurlselection.SelectableServiceUrlData;
+import com.deepdroid.coredev.devdialog.serviceurlselection.SelectableServiceUrlItem;
 import com.deepdroid.coredev.devdialog.serviceurlselection.SelectableServiceUrlList;
+import com.deepdroid.coredev.devdialog.serviceurlselection.UrlSelectionItem;
 import com.deepdroid.coredev.devdialog.uifordevdialog.CustomDevelopmentItem;
 import com.deepdroid.coredev.devdialog.uifordevdialog.CustomDevelopmentList;
 
@@ -37,11 +39,13 @@ public class DevelopmentDialog extends Dialog {
     private static final String DEVELOPMENT_BUTTON_MODE = "DEVELOPMENT_BUTTON_MODE";
     private static final String DEVELOPMENT_AUTOFILL_MODE = "DEVELOPMENT_AUTOFILL_MODE";
     private static final String DEVELOPMENT_STAY_AWAKE_MODE = "DEVELOPMENT_STAY_AWAKE_MODE";
+    private static final String TAG = DevelopmentDialog.class.getSimpleName();
 
     private View rootV;
     private TextView versionNameTv;
     private TextView valuesTypeNameTv;
     private RelativeLayout serviceLinkArea;
+    private TextView clearServiceLinkSelectionsTv;
     private TextView applyServiceLinkSelectionsTv;
     private CheckBox enableDevCb;
     private TextView enableDevTv;
@@ -65,6 +69,7 @@ public class DevelopmentDialog extends Dialog {
 
     private DevelopmentDialog(Context context, DevelopmentDialogData developmentDialogData) {
         super(context);
+        selectableServiceUrlData = developmentDialogData.selectableServiceUrlData;
         devDialogListener = developmentDialogData.devDialogListener;
     }
 
@@ -79,7 +84,7 @@ public class DevelopmentDialog extends Dialog {
         findViews();
         fadeInAnimation(rootV);
         initializeViews();
-        initializeSelectableServiceUrlRoot(true);
+        initializeSelectableServiceUrlList(true);
         initializeCustomDevelopmentItems();
     }
 
@@ -97,6 +102,7 @@ public class DevelopmentDialog extends Dialog {
         rootV = findViewById(R.id.development_root);
         versionNameTv = findViewById(R.id.development_application_version);
         serviceLinkArea = findViewById(R.id.development_service_link_area);
+        clearServiceLinkSelectionsTv = findViewById(R.id.development_service_link_clear_selection);
         applyServiceLinkSelectionsTv = findViewById(R.id.development_service_link_apply_selection);
         valuesTypeNameTv = findViewById(R.id.development_values_type);
         enableDevTv = findViewById(R.id.development_mode_text);
@@ -144,6 +150,7 @@ public class DevelopmentDialog extends Dialog {
         showUfoCb.setOnCheckedChangeListener(mOnCheckChangedListener);
         autoFillCb.setOnCheckedChangeListener(mOnCheckChangedListener);
         stayAwakeCb.setOnCheckedChangeListener(mOnCheckChangedListener);
+        clearServiceLinkSelectionsTv.setOnClickListener(mOnClickListener);
         applyServiceLinkSelectionsTv.setOnClickListener(mOnClickListener);
         enableDevTv.setOnClickListener(mOnClickListener);
         showUfoTv.setOnClickListener(mOnClickListener);
@@ -153,12 +160,23 @@ public class DevelopmentDialog extends Dialog {
         okTv.setOnClickListener(mOnClickListener);
     }
 
-    private void initializeSelectableServiceUrlRoot(boolean foreceRecreate) {
+    private void initializeSelectableServiceUrlList(boolean forceRecreateUi) {
         if (devDialogListener == null) {
+            Log.println(Log.ASSERT, TAG, "DevelopmentDialogListener was NULL");
             return;
         }
-        if (selectableServiceUrlData == null || foreceRecreate) {
+        if (selectableServiceUrlData == null) {
+            // Get url list.
             selectableServiceUrlData = devDialogListener.getServiceUrlLists();
+            if (selectableServiceUrlData.selectableServiceUrlItemList == null) {
+                Log.println(Log.ASSERT, TAG, "selectableServiceUrlData.selectableServiceUrlItemList was NULL");
+                return;
+            }
+            // Notify if previous selection exist.
+            notifyUrlSelectionChangedForAllItems(selectableServiceUrlData, devDialogListener);
+        }
+
+        if (forceRecreateUi) {
             serviceLinkArea.removeAllViews();
             selectableServiceUrlList = new SelectableServiceUrlList(getAppCx(), selectableServiceUrlListListener);
             selectableServiceUrlList.inflateViews(getAppCx(), selectableServiceUrlData.selectableServiceUrlItemList, R.layout.item_url_selection, 0);
@@ -200,7 +218,11 @@ public class DevelopmentDialog extends Dialog {
     private final View.OnClickListener mOnClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View view) {
-            if (view == applyServiceLinkSelectionsTv) {
+            if (view == clearServiceLinkSelectionsTv) {
+                HelperForPref.clearUrlSelections(getAppCx());
+                initializeSelectableServiceUrlList(true);
+                Log.println(Log.ASSERT, TAG, "All service url selections are now cleared");
+            } else if (view == applyServiceLinkSelectionsTv) {
                 new Handler().post(new Runnable() {
                     @Override
                     public void run() {
@@ -268,19 +290,19 @@ public class DevelopmentDialog extends Dialog {
 
     // SET
     private static void setDevelopmentEnabled(Context applicationContext, boolean newValue) {
-        HelperForPref.setInt(applicationContext, DEVELOPMENT_MODE, newValue ? 1 : -1);
+        HelperForPref.putInt(applicationContext, DEVELOPMENT_MODE, newValue ? 1 : -1);
     }
 
     private static void setDevelopmentButtonEnabled(Context applicationContext, boolean newValue) {
-        HelperForPref.setInt(applicationContext, DEVELOPMENT_BUTTON_MODE, newValue ? 1 : -1);
+        HelperForPref.putInt(applicationContext, DEVELOPMENT_BUTTON_MODE, newValue ? 1 : -1);
     }
 
     private static void setDevelopmentAutoFillEnabled(Context applicationContext, boolean newValue) {
-        HelperForPref.setBoolean(applicationContext, DEVELOPMENT_AUTOFILL_MODE, newValue);
+        HelperForPref.putBoolean(applicationContext, DEVELOPMENT_AUTOFILL_MODE, newValue);
     }
 
     private static void setDevelopmentStayAwakeEnabled(Context applicationContext, boolean newValue) {
-        HelperForPref.setBoolean(applicationContext, DEVELOPMENT_STAY_AWAKE_MODE, newValue);
+        HelperForPref.putBoolean(applicationContext, DEVELOPMENT_STAY_AWAKE_MODE, newValue);
     }
 
     // DEFAULT OPTIONS SET & QUERY METHODS
@@ -301,14 +323,18 @@ public class DevelopmentDialog extends Dialog {
                     return;
                 }
 
-                initializeSelectableServiceUrlRoot(false);
-                int urlItemId = selectableServiceUrlData.setNewSelectionIndexAt(index, selectionIndex);
-                devDialogListener.onSelectionChanged(urlItemId, selectionIndex, selectableServiceUrlData.getSelectedUrlAt(index));
+                initializeSelectableServiceUrlList(false);
+                UrlSelectionItem selectionItem = selectableServiceUrlData.setNewSelectionIndexAt(index, selectionIndex);
+                if (selectionItem == null) {
+                    return;
+                }
+                HelperForPref.putUrlSelection(getAppCx(), selectionItem);
+                devDialogListener.onSelectionChanged(selectionItem);
                 selectableServiceUrlList.notifyDataSetChanged();
             }
         };
 
-        initializeSelectableServiceUrlRoot(false);
+        initializeSelectableServiceUrlList(false);
         CorePicker serviceLinkPicker = new CorePicker(getContext(), selectableServiceUrlData.getUrlListAt(index), corePickerListener) {
             @Override
             protected void getPickerConfiguration(CorePickerConfiguration pickerConfiguration) {
@@ -325,6 +351,16 @@ public class DevelopmentDialog extends Dialog {
             }
         };
         serviceLinkPicker.showCustomDialog();
+    }
+
+    public static void notifyUrlSelectionChangedForAllItems(SelectableServiceUrlData selectableServiceUrlData, DevelopmentDialogListener devDialogListener) {
+        for (SelectableServiceUrlItem selectableServiceUrlItem : selectableServiceUrlData.selectableServiceUrlItemList) {
+            if (selectableServiceUrlItem.getSelectionItem() == null) {
+                Log.println(Log.ASSERT, TAG, "SelectionItem was NULL. Ignoring onSelectionChanged for item : " + selectableServiceUrlItem.itemId);
+                return;
+            }
+            devDialogListener.onSelectionChanged(selectableServiceUrlItem.getSelectionItem());
+        }
     }
 
     // SERVICE URL SELECTION

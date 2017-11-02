@@ -1,6 +1,7 @@
 package com.deepdroid.coredev.devdialog;
 
 import com.deepdroid.coredev.devdialog.serviceurlselection.SelectableServiceUrlData;
+import com.deepdroid.coredev.devdialog.serviceurlselection.UrlSelectionItem;
 import com.deepdroid.coredev.devdialog.uifordevdialog.CustomDevelopmentItem;
 
 import java.util.List;
@@ -16,9 +17,9 @@ public abstract class DevelopmentDialogListener {
 
     public abstract SelectableServiceUrlData getServiceUrlLists();
 
-    public abstract void onSelectionChanged(int newSelectionItemId, int newSelectionIndex, String newSelectionValue);
-
     public abstract void onCustomCheckChanged(int index, boolean isChecked);
 
     public abstract void onCustomButtonClicked(int index);
+
+    public abstract void onSelectionChanged(UrlSelectionItem selectionItem);
 }

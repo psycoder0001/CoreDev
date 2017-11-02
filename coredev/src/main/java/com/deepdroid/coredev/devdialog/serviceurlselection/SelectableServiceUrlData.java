@@ -1,11 +1,10 @@
 package com.deepdroid.coredev.devdialog.serviceurlselection;
 
+import android.content.Context;
 import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import static com.deepdroid.coredev.devdialog.serviceurlselection.SelectableServiceUrlItem.ILLEGAL_SELECTION_RESULT;
 
 /**
  * Created by evrenozturk on 02.11.2017.
@@ -16,7 +15,7 @@ public class SelectableServiceUrlData {
 
     public List<SelectableServiceUrlItem> selectableServiceUrlItemList;
 
-    public SelectableServiceUrlData(SelectableServiceUrlItem... selectableServiceUrlItemList) {
+    public SelectableServiceUrlData(Context applicationContext, SelectableServiceUrlItem... selectableServiceUrlItemList) {
         this.selectableServiceUrlItemList = new ArrayList<>();
         if (selectableServiceUrlItemList == null) {
             return;
@@ -27,6 +26,8 @@ public class SelectableServiceUrlData {
             }
             this.selectableServiceUrlItemList.add(selectableServiceUrlItem);
         }
+
+        loadPreviousSelections(applicationContext);
     }
 
     public String getSelectedUrlAt(int index) {
@@ -36,9 +37,9 @@ public class SelectableServiceUrlData {
         return selectableServiceUrlItemList.get(index).getSelectedUrl();
     }
 
-    public int setNewSelectionIndexAt(int index, int newSelectionIndex) {
+    public UrlSelectionItem setNewSelectionIndexAt(int index, int newSelectionIndex) {
         if (!isIndexAvailable(index)) {
-            return ILLEGAL_SELECTION_RESULT;
+            return null;
         }
         return selectableServiceUrlItemList.get(index).setSelectedIndex(newSelectionIndex);
     }
@@ -52,7 +53,7 @@ public class SelectableServiceUrlData {
 
     private boolean isIndexAvailable(int index) {
         if (selectableServiceUrlItemList == null || selectableServiceUrlItemList.isEmpty()) {
-            Log.println(Log.ASSERT, TAG, "Selectable service url list was empty!");
+            Log.println(Log.ASSERT, TAG, "Selectable service selectionValue list was empty!");
             return false;
         }
         if (index < 0 || index >= selectableServiceUrlItemList.size()) {
@@ -60,5 +61,21 @@ public class SelectableServiceUrlData {
             return false;
         }
         return true;
+    }
+
+    private boolean loadPreviousSelections(Context appCx) {
+        if (selectableServiceUrlItemList == null || selectableServiceUrlItemList.isEmpty()) {
+            return false;
+        }
+        boolean hasPreviousSelection = false;
+        for (SelectableServiceUrlItem selectableServiceUrlItem : selectableServiceUrlItemList) {
+            if (selectableServiceUrlItem == null) {
+                continue;
+            }
+            if (selectableServiceUrlItem.loadSelection(appCx)) {
+                hasPreviousSelection = true;
+            }
+        }
+        return hasPreviousSelection;
     }
 }
