@@ -25,6 +25,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        initDevelopmentDialog((ViewGroup) findViewById(R.id.main_root));
     }
 
     protected void initDevelopmentDialog(ViewGroup rootView) {
@@ -38,7 +39,7 @@ public class MainActivity extends AppCompatActivity {
         return new DevelopmentDialogListener() {
             @Override
             public boolean isDevelopmentVersion() {
-                return false;
+                return true;
             }
 
             @Override
@@ -59,13 +60,13 @@ public class MainActivity extends AppCompatActivity {
                         , "TestUrl Grp0 - Item1"
                         , "TestUrl Grp0 - Item2"
                 )
-                        , new SelectableServiceUrlItem(0, 0, "UrlItemList 1",
+                        , new SelectableServiceUrlItem(1, 2, "UrlItemList 1",
                         "TestUrl Grp1 - Item0"
                         , "TestUrl Grp1 - Item1"
                         , "TestUrl Grp1 - Item2"
                         , "TestUrl Grp1 - Item3"
                 )
-                        , new SelectableServiceUrlItem(0, 0, "UrlItemList 2",
+                        , new SelectableServiceUrlItem(2, 1, "UrlItemList 2",
                         "TestUrl Grp2 - Item0"
                         , "TestUrl Grp2 - Item1"
                 )

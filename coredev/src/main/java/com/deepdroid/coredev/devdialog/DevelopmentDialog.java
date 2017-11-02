@@ -57,6 +57,7 @@ public class DevelopmentDialog extends Dialog {
 
     private SelectableServiceUrlData selectableServiceUrlData;
     private DevelopmentDialogListener devDialogListener;
+    private SelectableServiceUrlList selectableServiceUrlList;
 
     public static DevelopmentDialog getInstance(Context context, DevelopmentDialogData developmentDialogData) {
         return new DevelopmentDialog(context, developmentDialogData);
@@ -78,7 +79,7 @@ public class DevelopmentDialog extends Dialog {
         findViews();
         fadeInAnimation(rootV);
         initializeViews();
-        initializeSelectableServiceUrlRoot();
+        initializeSelectableServiceUrlRoot(true);
         initializeCustomDevelopmentItems();
     }
 
@@ -152,15 +153,17 @@ public class DevelopmentDialog extends Dialog {
         okTv.setOnClickListener(mOnClickListener);
     }
 
-    private void initializeSelectableServiceUrlRoot() {
+    private void initializeSelectableServiceUrlRoot(boolean foreceRecreate) {
         if (devDialogListener == null) {
             return;
         }
-        selectableServiceUrlData = devDialogListener.getServiceUrlLists();
-        serviceLinkArea.removeAllViews();
-        SelectableServiceUrlList selectableServiceUrlList = new SelectableServiceUrlList(getAppCx(), selectableServiceUrlListListener);
-        selectableServiceUrlList.inflateViews(getAppCx(), selectableServiceUrlData.selectableServiceUrlItemList, R.layout.item_custom_development, 0);
-        serviceLinkArea.addView(selectableServiceUrlList);
+        if (selectableServiceUrlData == null || foreceRecreate) {
+            selectableServiceUrlData = devDialogListener.getServiceUrlLists();
+            serviceLinkArea.removeAllViews();
+            selectableServiceUrlList = new SelectableServiceUrlList(getAppCx(), selectableServiceUrlListListener);
+            selectableServiceUrlList.inflateViews(getAppCx(), selectableServiceUrlData.selectableServiceUrlItemList, R.layout.item_url_selection, 0);
+            serviceLinkArea.addView(selectableServiceUrlList);
+        }
     }
 
     private void initializeCustomDevelopmentItems() {
@@ -298,13 +301,14 @@ public class DevelopmentDialog extends Dialog {
                     return;
                 }
 
-                initializeSelectableServiceUrlRoot();
+                initializeSelectableServiceUrlRoot(false);
                 int urlItemId = selectableServiceUrlData.setNewSelectionIndexAt(index, selectionIndex);
                 devDialogListener.onSelectionChanged(urlItemId, selectionIndex, selectableServiceUrlData.getSelectedUrlAt(index));
+                selectableServiceUrlList.notifyDataSetChanged();
             }
         };
 
-        initializeSelectableServiceUrlRoot();
+        initializeSelectableServiceUrlRoot(false);
         CorePicker serviceLinkPicker = new CorePicker(getContext(), selectableServiceUrlData.getUrlListAt(index), corePickerListener) {
             @Override
             protected void getPickerConfiguration(CorePickerConfiguration pickerConfiguration) {

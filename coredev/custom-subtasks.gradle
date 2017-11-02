@@ -54,20 +54,23 @@ def commitChangesForDistribution() {
 // ===================================
 // TASK CUSTOMIZATION
 tasks.whenTaskAdded { task ->
-    if (task.name.toLowerCase().contains('release')) {
-        if (task.name == 'assembleRelease') {
-            // <assembleRelease> task triggers <onAssembleRelease> which is custom task to our stuff
-            task.dependsOn('onAssembleRelease')
-            // <bintrayUpload> task must be called after the <assembleRelease> task is finished.
-            task.finalizedBy('bintrayUpload')
+    try {
+        if (task.name.toLowerCase().contains('release')) {
+            if (task.name == 'assembleRelease') {
+                // <assembleRelease> task triggers <onAssembleRelease> which is custom task to our stuff
+                task.dependsOn('onAssembleRelease')
+                // <bintrayUpload> task must be called after the <assembleRelease> task is finished.
+                task.finalizedBy('bintrayUpload')
+            }
         }
-    }
 
-    // Other Rules ( Clean & build project before the <assembleRelease> task group. )
-    preBuild.dependsOn clean
-    preBuild.mustRunAfter clean
-    build.dependsOn preBuild
-    build.mustRunAfter preBuild
+        // Other Rules ( Clean & build project before the <assembleRelease> task group. )
+        preBuild.dependsOn clean
+        preBuild.mustRunAfter clean
+        build.dependsOn preBuild
+        build.mustRunAfter preBuild
+    } catch (Exception ignored) {
+    }
 }
 
 task('onAssembleRelease') << {
