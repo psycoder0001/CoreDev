@@ -352,6 +352,7 @@ public class DevelopmentDialog extends Dialog {
     public void applyServiceUrlSelections() {
         if (selectableServiceUrlData == null || selectableServiceUrlData.selectableServiceUrlItemList == null) {
             restartWithDelay();
+            return;
         }
         int index = 0;
         for (SelectableServiceUrlItem selectableServiceUrlItem : selectableServiceUrlData.selectableServiceUrlItemList) {
@@ -361,6 +362,7 @@ public class DevelopmentDialog extends Dialog {
                 Log.println(Log.ASSERT, TAG, "SelectionItem or customUrlValue was NULL. Ignoring onSelectionChanged for item : " + selectableServiceUrlItem.itemId);
                 continue;
             }
+            urlSelectionItem.selectionValue = customUrlValue;
             HelperForPref.putUrlSelection(getAppCx(), urlSelectionItem);
             index++;
         }

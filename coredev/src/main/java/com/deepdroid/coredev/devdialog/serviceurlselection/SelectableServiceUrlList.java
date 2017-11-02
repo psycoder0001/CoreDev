@@ -24,6 +24,7 @@ public class SelectableServiceUrlList extends CoreDevListWithoutScroll {
         ViewHolder viewHolder = getViewHolderAt(index);
         if (viewHolder == null) {
             viewHolder = new ViewHolder(convertView);
+            convertView.setTag(viewHolder);
         }
         if (viewData instanceof SelectableServiceUrlItem) {
             viewHolder.setData((SelectableServiceUrlItem) viewData, index);
