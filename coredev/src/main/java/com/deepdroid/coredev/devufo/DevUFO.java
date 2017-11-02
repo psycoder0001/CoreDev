@@ -18,7 +18,7 @@ import com.deepdroid.coredev.HelperForCommon;
 import com.deepdroid.coredev.R;
 import com.deepdroid.coredev.devdialog.DevelopmentDialog;
 import com.deepdroid.coredev.devdialog.DevelopmentDialogData;
-import com.deepdroid.coredev.devdialog.uifordevdialog.DevelopmentDialogListener;
+import com.deepdroid.coredev.devdialog.DevelopmentDialogListener;
 
 /**
  * Created by evrenozturk on 13/08/15.
@@ -186,7 +186,7 @@ public class DevUFO extends AppCompatImageView {
                 return;
             }
             if (developmentDialogListener.isDevelopmentVersion()) {
-                DevelopmentDialog.onDevelopmentVersion(activityContext.getApplicationContext(), developmentDialogListener);
+                DevelopmentDialog.onDevelopmentVersion(activityContext.getApplicationContext());
             }
             if (!DevelopmentDialog.isDevelopmentEnabled(activityContext.getApplicationContext())) {
                 Log.println(Log.ASSERT, "DevUFO", "This app is development version but the development mode is disabled manually");

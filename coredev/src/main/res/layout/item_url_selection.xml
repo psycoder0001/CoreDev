@@ -1,21 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
-
-    <TextView
-        android:id="@+id/development_service_link_value"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_centerVertical="true"
-        android:gravity="center_vertical"
-        android:padding="10dp"
-        android:text="@string/dev_dummy_service_url"
-        android:textColor="@color/dev_clr_code_green"
-        android:textSize="12.1dp"
-        android:textStyle="italic"
-        android:typeface="monospace"/>
+    android:layout_height="wrap_content"
+    android:background="@drawable/dev_bg_button_transparent"
+    android:paddingEnd="10dp"
+    android:paddingLeft="10dp"
+    android:paddingRight="10dp"
+    android:paddingStart="10dp">
 
     <TextView
         android:id="@+id/development_service_link_change"
@@ -23,16 +16,48 @@
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
-        android:layout_below="@id/development_service_link_area"
         android:layout_centerVertical="true"
+        android:layout_marginLeft="10dp"
+        android:layout_marginStart="10dp"
         android:background="@drawable/dev_bg_button"
-        android:gravity="center"
         android:padding="5dp"
-        android:paddingLeft="10dp"
-        android:paddingRight="10dp"
         android:text="@string/change"
         android:textColor="@color/dev_clr_code_green"
         android:textSize="12sp"
         android:textStyle="bold"
+        android:typeface="monospace"/>
+
+    <TextView
+        android:id="@+id/development_service_link_title"
+        android:layout_width="match_parent"
+        android:layout_height="35dp"
+        android:layout_toLeftOf="@id/development_service_link_change"
+        android:layout_toStartOf="@id/development_service_link_change"
+        android:ellipsize="end"
+        android:gravity="center_vertical"
+        android:maxLines="1"
+        android:singleLine="true"
+        android:textColor="@color/dev_clr_code_green"
+        android:textSize="12.1dp"
+        android:textStyle="bold"
+        android:typeface="monospace"
+        tools:text="Title"/>
+
+    <TextView
+        android:id="@+id/development_service_link_value"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:layout_toLeftOf="@id/development_service_link_change"
+        android:layout_toStartOf="@id/development_service_link_change"
+        android:ellipsize="end"
+        android:maxLines="1"
+        android:paddingBottom="10dp"
+        android:paddingTop="10dp"
+        android:singleLine="true"
+        android:text="@string/dev_dummy_service_url"
+        android:textColor="@color/dev_clr_code_green"
+        android:textSize="12.1dp"
+        android:textStyle="italic"
         android:typeface="monospace"/>
 </RelativeLayout>
