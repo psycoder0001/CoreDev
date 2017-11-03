@@ -1,4 +1,4 @@
-package com.deepdroid.coredev;
+package com.deepdroid.testmodule;
 
 import org.junit.Test;
 

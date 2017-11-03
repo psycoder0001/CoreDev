@@ -21,6 +21,8 @@ import android.widget.TextView;
 
 import com.deepdroid.coredev.R;
 
+import java.util.List;
+
 /**
  * Created by evrenozturk on 23/06/15.
  */
@@ -31,7 +33,7 @@ public abstract class CorePicker extends Dialog {
 
     private CorePickerConfiguration pickerConfiguration = new CorePickerConfiguration();
     private CorePickerListener corePickerListener;
-    private String[] textItemArray;
+    private List<String> textItemArray;
 
     private int selectedIndex = 0;
 
@@ -39,11 +41,11 @@ public abstract class CorePicker extends Dialog {
 
     // =============================================================================================
     // CONSTRUCTOR & DIALOG OPERATIONS
-    public CorePicker(Context context, String[] textItemArray, CorePickerListener corePickerListener) {
+    public CorePicker(Context context, List<String> textItemArray, CorePickerListener corePickerListener) {
         this(context, textItemArray, corePickerListener, 0.4f);
     }
 
-    public CorePicker(Context context, String[] textItemArray, CorePickerListener corePickerListener, final float dimAmount) {
+    public CorePicker(Context context, List<String> textItemArray, CorePickerListener corePickerListener, final float dimAmount) {
         super(context, R.style.style_dialog_fullscreen);
 
         try {
@@ -137,7 +139,9 @@ public abstract class CorePicker extends Dialog {
         itemRv.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
         itemRv.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
         itemRv.setAdapter(recyclerViewAdapter);
-        if (listContainerVg != null) { listContainerVg.addView(itemRv); }
+        if (listContainerVg != null) {
+            listContainerVg.addView(itemRv);
+        }
     }
 
     private RecyclerView.Adapter recyclerViewAdapter = new RecyclerView.Adapter<RecyclerView.ViewHolder>() {
@@ -148,12 +152,12 @@ public abstract class CorePicker extends Dialog {
 
         @Override
         public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
-            ((ViewHolder) holder).setData(textItemArray[position]);
+            ((ViewHolder) holder).setData(textItemArray.get(position));
         }
 
         @Override
         public int getItemCount() {
-            return textItemArray.length;
+            return textItemArray.size();
         }
     };
 
@@ -187,16 +191,22 @@ public abstract class CorePicker extends Dialog {
                     ObjectAnimator animator = ObjectAnimator.ofFloat(itemRootSelected, "alpha", 1f, 0f).setDuration(400);
                     animator.addListener(new Animator.AnimatorListener() {
                         @Override
-                        public void onAnimationStart(Animator animation) {}
+                        public void onAnimationStart(Animator animation) {
+                        }
 
                         @Override
-                        public void onAnimationEnd(Animator animation) {itemRootSelected.setVisibility(View.GONE);}
+                        public void onAnimationEnd(Animator animation) {
+                            itemRootSelected.setVisibility(View.GONE);
+                        }
 
                         @Override
-                        public void onAnimationCancel(Animator animation) {itemRootSelected.setVisibility(View.GONE);}
+                        public void onAnimationCancel(Animator animation) {
+                            itemRootSelected.setVisibility(View.GONE);
+                        }
 
                         @Override
-                        public void onAnimationRepeat(Animator animation) {}
+                        public void onAnimationRepeat(Animator animation) {
+                        }
                     });
                     animator.start();
                 }

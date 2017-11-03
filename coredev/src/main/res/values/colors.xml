@@ -12,4 +12,5 @@
     <color name="development_gray_dark">#F666</color>
     <color name="c_invalid_input">#DD3E48</color>
     <color name="dev_clr_code_green">#22AA22</color>
+    <color name="dev_clr_code_green_hint">#227722</color>
 </resources>

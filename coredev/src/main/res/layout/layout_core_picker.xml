@@ -12,8 +12,7 @@
         android:id="@+id/core_picker_header_text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:gravity="center_vertical|left"
+        android:gravity="center_vertical"
         android:padding="7.5dp"
         android:textColor="#222222"
         android:textSize="15sp"
@@ -31,7 +30,7 @@
         android:layout_below="@id/core_picker_header_text"
         android:background="#F222"/>
 
-    <AbsoluteLayout
+    <RelativeLayout
         android:id="@+id/core_picker_list_area"
         android:layout_width="match_parent"
         android:layout_height="250dp"

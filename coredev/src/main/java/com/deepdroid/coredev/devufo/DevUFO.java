@@ -18,7 +18,8 @@ import com.deepdroid.coredev.HelperForCommon;
 import com.deepdroid.coredev.R;
 import com.deepdroid.coredev.devdialog.DevelopmentDialog;
 import com.deepdroid.coredev.devdialog.DevelopmentDialogData;
-import com.deepdroid.coredev.devdialog.uifordevdialog.DevelopmentDialogCustomOptionsListener;
+import com.deepdroid.coredev.devdialog.DevelopmentDialogListener;
+import com.deepdroid.coredev.devdialog.serviceurlselection.SelectableServiceUrlData;
 
 /**
  * Created by evrenozturk on 13/08/15.
@@ -172,10 +173,10 @@ public class DevUFO extends AppCompatImageView {
         return super.onTouchEvent(event);
     }
 
-    public static void getInstance(final Activity activityContext
+    public static void attachUfo(final Activity activityContext
             , final ViewGroup rootView
             , final OnClickListener externalOnClickListenerForUFO
-            , final DevelopmentDialogCustomOptionsListener developmentDialogListener) {
+            , final DevelopmentDialogListener developmentDialogListener) {
         try {
             if (developmentDialogListener == null) {
                 Log.println(Log.ASSERT, "DevUFO", "DevelopmentDialogListener cannot be null");
@@ -197,14 +198,17 @@ public class DevUFO extends AppCompatImageView {
                 return;
             }
 
+            final SelectableServiceUrlData selectableServiceUrlData = developmentDialogListener.getServiceUrlLists();
+            DevelopmentDialog.notifyServiceUrlSelectionChangedForAllItems(selectableServiceUrlData, developmentDialogListener);
+
             DevUFO devUFO = new DevUFO(activityContext);
             devUFO.setOnClickListener(new OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     // SHOW DEVELOPMENT DIALOG
-                    DevelopmentDialogData dataTransferObject = new DevelopmentDialogData(developmentDialogListener);
+                    DevelopmentDialogData dataTransferObject = new DevelopmentDialogData(selectableServiceUrlData, developmentDialogListener);
                     DevelopmentDialog developmentDialog = DevelopmentDialog.getInstance(activityContext, dataTransferObject);
-                    developmentDialog.showCustomDialog();
+                    developmentDialog.show();
 
                     // INFORM EVENT TO EXTERNAL LISTENER
                     if (externalOnClickListenerForUFO != null) {
