@@ -1,19 +1,19 @@
 <resources>
-    <string name="txt_development_custom_options_header">CUSTOM DEVELOPMENT OPTIONS</string>
-    <string name="txt_development_default_options">DEVELOPMENT OPTIONS</string>
-    <string name="clear_selection">CLEAR SELECTION</string>
-    <string name="apply_selection">APPLY SELECTION</string>
-    <string name="select_service_link">SELECT SERVICE LINK</string>
-    <string name="change">Change</string>
-    <string name="dev_dummy_service_url">http://ServiceUrl.com</string>
-    <string name="restart_app"><![CDATA[RESTART APP >]]></string>
-    <string name="ok">OK</string>
-    <string name="force_device_to_stay_awake">Force Device to Stay Awake</string>
-    <string name="editable_area_auto_fill_enabled">Editable Area Auto-fill Enabled</string>
-    <string name="development_button_visible">Development Button Visible</string>
-    <string name="development_mode_enabled">Development Mode Enabled</string>
-    <string name="dev_dummy_screentype">ScreenType</string>
-    <string name="dev_dummy_versionname">versionName</string>
-    <string name="development_options">Development Options</string>
-    <string name="url_hint">Type your url here</string>
+    <string name="cd_txt_development_custom_options_header">CUSTOM DEVELOPMENT OPTIONS</string>
+    <string name="cd_txt_development_default_options">DEVELOPMENT OPTIONS</string>
+    <string name="cd_set_to_default">SET TO DEFAULT</string>
+    <string name="cd_apply_selection">APPLY SELECTION</string>
+    <string name="cd_select_service_link">SELECT SERVICE LINK</string>
+    <string name="cd_select">Select</string>
+    <string name="cd_dev_dummy_service_url">http://ServiceUrl.com</string>
+    <string name="cd_restart_app"><![CDATA[RESTART APP >]]></string>
+    <string name="cd_ok">OK</string>
+    <string name="cd_force_device_to_stay_awake">Force Device to Stay Awake</string>
+    <string name="cd_editable_area_auto_fill_enabled">Editable Area Auto-fill Enabled</string>
+    <string name="cd_development_button_visible">Development Button Visible</string>
+    <string name="cd_development_mode_enabled">Development Mode Enabled</string>
+    <string name="cd_dev_dummy_screentype">ScreenType</string>
+    <string name="cd_dev_dummy_versionname">versionName</string>
+    <string name="cd_development_options">Development Options</string>
+    <string name="cd_url_hint">Type your url here</string>
 </resources>

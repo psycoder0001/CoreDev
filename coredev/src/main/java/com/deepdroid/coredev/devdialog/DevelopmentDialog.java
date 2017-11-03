@@ -46,7 +46,7 @@ public class DevelopmentDialog extends Dialog {
     private TextView versionNameTv;
     private TextView valuesTypeNameTv;
     private RelativeLayout serviceLinkArea;
-    private TextView clearServiceLinkSelectionsTv;
+    private TextView setToDefaultTv;
     private TextView applyServiceLinkSelectionsTv;
     private CheckBox enableDevCb;
     private TextView enableDevTv;
@@ -103,7 +103,7 @@ public class DevelopmentDialog extends Dialog {
         rootV = findViewById(R.id.development_root);
         versionNameTv = findViewById(R.id.development_application_version);
         serviceLinkArea = findViewById(R.id.development_service_link_area);
-        clearServiceLinkSelectionsTv = findViewById(R.id.development_service_link_clear_selection);
+        setToDefaultTv = findViewById(R.id.development_service_link_clear_selection);
         applyServiceLinkSelectionsTv = findViewById(R.id.development_service_link_apply_selection);
         valuesTypeNameTv = findViewById(R.id.development_values_type);
         enableDevTv = findViewById(R.id.development_mode_text);
@@ -151,7 +151,7 @@ public class DevelopmentDialog extends Dialog {
         showUfoCb.setOnCheckedChangeListener(mOnCheckChangedListener);
         autoFillCb.setOnCheckedChangeListener(mOnCheckChangedListener);
         stayAwakeCb.setOnCheckedChangeListener(mOnCheckChangedListener);
-        clearServiceLinkSelectionsTv.setOnClickListener(mOnClickListener);
+        setToDefaultTv.setOnClickListener(mOnClickListener);
         applyServiceLinkSelectionsTv.setOnClickListener(mOnClickListener);
         enableDevTv.setOnClickListener(mOnClickListener);
         showUfoTv.setOnClickListener(mOnClickListener);
@@ -219,10 +219,11 @@ public class DevelopmentDialog extends Dialog {
     private final View.OnClickListener mOnClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View view) {
-            if (view == clearServiceLinkSelectionsTv) {
+            if (view == setToDefaultTv) {
                 HelperForPref.clearUrlSelections(getAppCx());
                 initializeSelectableServiceUrlList(true, true);
                 Log.println(Log.ASSERT, TAG, "All service url selections are now cleared");
+                restartWithDelay();
             } else if (view == applyServiceLinkSelectionsTv) {
                 applyServiceUrlSelections();
             } else if (view == enableDevTv) {
