@@ -85,7 +85,7 @@ public class DevelopmentDialog extends Dialog {
         findViews();
         fadeInAnimation(rootV);
         initializeViews();
-        initializeSelectableServiceUrlList(true);
+        initializeSelectableServiceUrlList(false, true);
         initializeCustomDevelopmentItems();
     }
 
@@ -161,12 +161,12 @@ public class DevelopmentDialog extends Dialog {
         okTv.setOnClickListener(mOnClickListener);
     }
 
-    private void initializeSelectableServiceUrlList(boolean forceRecreateUi) {
+    private void initializeSelectableServiceUrlList(boolean forceRecreateData, boolean forceRecreateUi) {
         if (devDialogListener == null) {
             Log.println(Log.ASSERT, TAG, "DevelopmentDialogListener was NULL");
             return;
         }
-        if (selectableServiceUrlData == null) {
+        if (selectableServiceUrlData == null || forceRecreateData) {
             // Get url list.
             selectableServiceUrlData = devDialogListener.getServiceUrlLists();
             if (selectableServiceUrlData.selectableServiceUrlItemList == null) {
@@ -221,7 +221,7 @@ public class DevelopmentDialog extends Dialog {
         public void onClick(View view) {
             if (view == clearServiceLinkSelectionsTv) {
                 HelperForPref.clearUrlSelections(getAppCx());
-                initializeSelectableServiceUrlList(true);
+                initializeSelectableServiceUrlList(true, true);
                 Log.println(Log.ASSERT, TAG, "All service url selections are now cleared");
             } else if (view == applyServiceLinkSelectionsTv) {
                 applyServiceUrlSelections();
@@ -319,7 +319,7 @@ public class DevelopmentDialog extends Dialog {
                     return;
                 }
 
-                initializeSelectableServiceUrlList(false);
+                initializeSelectableServiceUrlList(false, false);
                 UrlSelectionItem selectionItem = selectableServiceUrlData.setNewSelectionIndexAt(index, selectionIndex);
                 if (selectionItem == null) {
                     return;
@@ -330,7 +330,7 @@ public class DevelopmentDialog extends Dialog {
             }
         };
 
-        initializeSelectableServiceUrlList(false);
+        initializeSelectableServiceUrlList(false, false);
         CorePicker serviceLinkPicker = new CorePicker(getContext(), selectableServiceUrlData.getUrlListAt(index), corePickerListener) {
             @Override
             protected void getPickerConfiguration(CorePickerConfiguration pickerConfiguration) {
