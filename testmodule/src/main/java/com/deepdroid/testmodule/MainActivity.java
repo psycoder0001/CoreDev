@@ -1,6 +1,7 @@
 package com.deepdroid.testmodule;
 
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.ViewGroup;
@@ -26,7 +27,15 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        initDevelopmentDialog((ViewGroup) findViewById(R.id.main_root));
+
+        new Handler().postDelayed(
+                new Runnable() {
+                    @Override
+                    public void run() {
+                        initDevelopmentDialog((ViewGroup) findViewById(R.id.main_root));
+                    }
+                }, 1000
+        );
     }
 
     protected void initDevelopmentDialog(ViewGroup rootView) {

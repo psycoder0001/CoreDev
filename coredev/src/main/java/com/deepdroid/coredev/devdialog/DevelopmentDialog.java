@@ -371,12 +371,12 @@ public class DevelopmentDialog extends Dialog {
     }
 
     private void restartWithDelay() {
-        new Handler().post(new Runnable() {
+        new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
                 HelperForCommon.restartWithInit(getAppCx());
             }
-        });
+        }, 500);
     }
 
     public static void notifyServiceUrlSelectionChangedForAllItems(SelectableServiceUrlData selectableServiceUrlData, DevelopmentDialogListener devDialogListener) {
