@@ -63,8 +63,8 @@ public class HelperForPref {
         if (urlSelectionItem == null) {
             return;
         }
-        getPreferencesForUrlSelection(applicationContext).edit().putInt(urlSelectionItem.itemId + "_index", urlSelectionItem.selectionIndex).apply();
-        getPreferencesForUrlSelection(applicationContext).edit().putString(urlSelectionItem.itemId + "_value", urlSelectionItem.selectionValue).apply();
+        getPreferencesForUrlSelection(applicationContext).edit().putInt(urlSelectionItem.itemId + "_index", urlSelectionItem.selectionIndex).commit();
+        getPreferencesForUrlSelection(applicationContext).edit().putString(urlSelectionItem.itemId + "_value", urlSelectionItem.selectionValue).commit();
     }
 
     public static UrlSelectionItem getUrlSelection(Context applicationContext, int itemId) {
