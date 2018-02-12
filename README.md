@@ -69,17 +69,17 @@ II.B.1. * Basic case where you have single api in your app.
                 , "http://tst.yourmobilapi.com.tr/api/"
                 , "http://dev.yourmobilapi.com.tr/api/")
                 , new SelectableServiceUrlItem(API_SOCKET, defaultServiceUrlIndex, "Socket Api"
-                , "http://yourmobilapi.com.tr/api/"
-                , "http://prd.yourmobilapi.com.tr/api/"
-                , "http://dev.yourmobilapi.com.tr/api/")
+                , "http://prd.yoursocketapi.com.tr/api/"
+                , "http://tst.yoursocketapi.com.tr/api/"
+                , "http://dev.yoursocketapi.com.tr/api/")
                 , new SelectableServiceUrlItem(API_PUSH, defaultServiceUrlIndex, "Push Api"
-                , "http://prd.yourmobilapi.com.tr/api/"
-                , "http://tst.yourmobilapi.com.tr/api/"
+                , "http://prd.yourpushapi.com.tr/api/"
+                , "http://tst.yourpushapi.com.tr/api/"
                 , "http://dev.yourpushapi.com.tr/api/")
         );
     }
 ```
- And handle its actions just like that:
+ And handle your actions just like that:
 ```java
     @Override
     public void onSelectionChanged(UrlSelectionItem selectionItem) {
