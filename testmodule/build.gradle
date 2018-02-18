@@ -13,10 +13,9 @@ android {
         targetSdkVersion project.ANDROID_TARGET_SDK_VERSION
         versionCode Integer.valueOf(project.CURRENT_MAJOR_VERSION + project.CURRENT_MINOR_VERSION + project.CURRENT_UPLOAD_VERSION)
 
-        applicationId "com.deepdroid.testmodule"
+        applicationId "com.deepdroid.coredevtestmodule"
         versionName "1.0"
     }
-
     buildTypes {
         release {
             minifyEnabled false
@@ -26,7 +25,8 @@ android {
 }
 
 dependencies {
-    compile project(path: ':coredev')
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation 'com.android.support:appcompat-v7:25.1.0'
+
+    implementation 'com.android.support:appcompat-v7:27.0.2'
+    testImplementation 'junit:junit:4.12'
 }

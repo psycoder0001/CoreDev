@@ -1,4 +1,4 @@
-package com.deepdroid.testmodule;
+package com.deepdroid.coredevtestmodule;
 
 import android.os.Bundle;
 import android.os.Handler;
