@@ -33,7 +33,7 @@ public abstract class CorePicker extends Dialog {
 
     private CorePickerConfiguration pickerConfiguration = new CorePickerConfiguration();
     private CorePickerListener corePickerListener;
-    private List<String> textItemArray;
+    private List<CorePickerItem> textItemArray;
 
     private int selectedIndex = 0;
 
@@ -41,11 +41,11 @@ public abstract class CorePicker extends Dialog {
 
     // =============================================================================================
     // CONSTRUCTOR & DIALOG OPERATIONS
-    public CorePicker(Context context, List<String> textItemArray, CorePickerListener corePickerListener) {
+    public CorePicker(Context context, List<CorePickerItem> textItemArray, CorePickerListener corePickerListener) {
         this(context, textItemArray, corePickerListener, 0.4f);
     }
 
-    public CorePicker(Context context, List<String> textItemArray, CorePickerListener corePickerListener, final float dimAmount) {
+    public CorePicker(Context context, List<CorePickerItem> textItemArray, CorePickerListener corePickerListener, final float dimAmount) {
         super(context, R.style.style_dialog_fullscreen);
 
         try {
@@ -59,10 +59,10 @@ public abstract class CorePicker extends Dialog {
         if (pickerConfiguration == null) {
             Log.e(TAG, "Picker configurations cannot be empty");
         }
-        if (pickerConfiguration.layoutResourceID < 1) {
+        if (pickerConfiguration.layoutResourceId < 1) {
             Log.e(TAG, "Picker configurations. InvalidLayoutID");
         }
-        if (pickerConfiguration.listContainerID < 1) {
+        if (pickerConfiguration.listContainerId < 1) {
             Log.e(TAG, "Picker configurations. InvalidListContainerID");
         }
 
@@ -131,9 +131,9 @@ public abstract class CorePicker extends Dialog {
         super.onCreate(savedInstanceState);
         setCancelable(true);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
-        setContentView(pickerConfiguration.layoutResourceID);
+        setContentView(pickerConfiguration.layoutResourceId);
 
-        ViewGroup listContainerVg = (ViewGroup) findViewById(pickerConfiguration.listContainerID);
+        ViewGroup listContainerVg = (ViewGroup) findViewById(pickerConfiguration.listContainerId);
 
         itemRv = new RecyclerView(getContext());
         itemRv.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
@@ -147,7 +147,7 @@ public abstract class CorePicker extends Dialog {
     private RecyclerView.Adapter recyclerViewAdapter = new RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         @Override
         public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-            return new ViewHolder(LayoutInflater.from(getContext()).inflate(pickerConfiguration.itemResourceID, parent, false));
+            return new ViewHolder(LayoutInflater.from(getContext()).inflate(pickerConfiguration.itemResourceId, parent, false));
         }
 
         @Override
@@ -162,31 +162,34 @@ public abstract class CorePicker extends Dialog {
     };
 
     private class ViewHolder extends RecyclerView.ViewHolder {
-        private TextView itemText;
         private View itemRoot;
-
-        private TextView itemTextSelected;
+        private TextView itemTitle;
+        private TextView itemValue;
         private View itemRootSelected;
+        private TextView itemTitleSelected;
+        private TextView itemValueSelected;
 
         public ViewHolder(View itemView) {
             super(itemView);
-            itemText = (TextView) itemView.findViewById(pickerConfiguration.itemTextID);
-            itemRoot = itemView.findViewById(pickerConfiguration.itemRootID);
-            itemTextSelected = (TextView) itemView.findViewById(pickerConfiguration.itemSelectedTextID);
-            itemRootSelected = itemView.findViewById(pickerConfiguration.itemSelectedRootID);
+            itemRoot = itemView.findViewById(pickerConfiguration.itemRootId);
+            itemTitle = itemView.findViewById(pickerConfiguration.itemTitleId);
+            itemValue = itemView.findViewById(pickerConfiguration.itemValueId);
+            itemRootSelected = itemView.findViewById(pickerConfiguration.itemSelectedRootId);
+            itemTitleSelected = itemView.findViewById(pickerConfiguration.itemSelectedTitleId);
+            itemValueSelected = itemView.findViewById(pickerConfiguration.itemSelectedValueId);
         }
 
-        public void setData(String text) {
+        public void setData(CorePickerItem corePickerItem) {
+            itemTitle.setText(corePickerItem.title);
+            itemValue.setText(corePickerItem.value);
+            itemTitleSelected.setText(corePickerItem.title);
+            itemValueSelected.setText(corePickerItem.value);
             if (getAdapterPosition() == selectedIndex) {
-                itemTextSelected.setText(text);
-                itemText.setText(text);
                 if (itemRootSelected.getVisibility() != View.VISIBLE) {
                     itemRootSelected.setVisibility(View.VISIBLE);
                     ObjectAnimator.ofFloat(itemRootSelected, "alpha", 0f, 1f).setDuration(400).start();
                 }
             } else {
-                itemTextSelected.setText(text);
-                itemText.setText(text);
                 if (itemRootSelected.getVisibility() == View.VISIBLE) {
                     ObjectAnimator animator = ObjectAnimator.ofFloat(itemRootSelected, "alpha", 1f, 0f).setDuration(400);
                     animator.addListener(new Animator.AnimatorListener() {

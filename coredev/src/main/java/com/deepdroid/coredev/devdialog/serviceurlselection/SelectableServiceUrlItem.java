@@ -5,6 +5,7 @@ import android.text.TextUtils;
 import android.util.Log;
 
 import com.deepdroid.coredev.HelperForPref;
+import com.deepdroid.coredev.corepicker.CorePickerItem;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,28 +20,28 @@ public class SelectableServiceUrlItem {
     public final int itemId;
     public int currentSelection = 0;
     public final String title;
-    public final List<String> serviceUrlList;
+    public final List<CorePickerItem> serviceUrlList;
 
-    public SelectableServiceUrlItem(int itemId, int currentSelection, String title, String... serviceUrlList) {
+    public SelectableServiceUrlItem(int itemId, int currentSelection, String title, CorePickerItem... serviceUrlItems) {
         this.itemId = itemId;
         this.currentSelection = currentSelection;
         this.title = title;
         this.serviceUrlList = new ArrayList<>();
 
-        if (serviceUrlList == null) {
+        if (serviceUrlItems == null) {
             return;
         }
-        for (String url : serviceUrlList) {
-            if (TextUtils.isEmpty(url)) {
+        for (CorePickerItem urlItem : serviceUrlItems) {
+            if (urlItem == null || TextUtils.isEmpty(urlItem.value)) {
                 continue;
             }
-            this.serviceUrlList.add(url);
+            this.serviceUrlList.add(urlItem);
         }
     }
 
-    public String getSelectedUrl() {
+    public CorePickerItem getSelectedUrl() {
         if (!isIndexAvailable(currentSelection)) {
-            return "";
+            return null;
         }
         return serviceUrlList.get(currentSelection);
     }
@@ -67,12 +68,12 @@ public class SelectableServiceUrlItem {
     }
 
     public UrlSelectionItem getSelectionItem() {
-        String selectionValue = getSelectedUrl();
-        if (TextUtils.isEmpty(selectionValue)) {
+        CorePickerItem selectionUrlItem = getSelectedUrl();
+        if (selectionUrlItem == null || TextUtils.isEmpty(selectionUrlItem.value)) {
             Log.println(Log.ASSERT, TAG, "Selection value was empty");
             return null;
         }
-        return new UrlSelectionItem(itemId, currentSelection, selectionValue);
+        return new UrlSelectionItem(itemId, currentSelection, selectionUrlItem.value);
     }
 
     boolean loadSelection(Context appCx) {
@@ -84,7 +85,9 @@ public class SelectableServiceUrlItem {
         if (serviceUrlList == null || serviceUrlList.isEmpty() || selectionItem.selectionIndex < 0 || selectionItem.selectionIndex >= serviceUrlList.size()) {
             return false;
         }
-        serviceUrlList.set(currentSelection, selectionItem.selectionValue);
+        CorePickerItem currentSelectionItem = serviceUrlList.get(currentSelection);
+        currentSelectionItem.value = selectionItem.selectionValue;
+        serviceUrlList.set(currentSelection, currentSelectionItem);
         return true;
     }
 }

@@ -340,10 +340,12 @@ public class DevelopmentDialog extends Dialog {
                         R.id.core_picker_list_area,
                         0,
                         R.layout.item_core_picker,
-                        R.id.core_picker_text,
                         R.id.core_picker_root,
-                        R.id.core_picker_text_selected,
-                        R.id.core_picker_root_selected
+                        R.id.core_picker_title,
+                        R.id.core_picker_value,
+                        R.id.core_picker_root_selected,
+                        R.id.core_picker_title_selected,
+                        R.id.core_picker_value_selected
                 );
             }
         };

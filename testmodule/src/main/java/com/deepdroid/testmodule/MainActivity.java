@@ -7,6 +7,7 @@ import android.util.Log;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 
+import com.deepdroid.coredev.corepicker.CorePickerItem;
 import com.deepdroid.coredev.devdialog.DevelopmentDialog;
 import com.deepdroid.coredev.devdialog.DevelopmentDialogListener;
 import com.deepdroid.coredev.devdialog.serviceurlselection.SelectableServiceUrlData;
@@ -66,20 +67,20 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public SelectableServiceUrlData getServiceUrlLists() {
                 return new SelectableServiceUrlData(getApplicationContext()
-                        , new SelectableServiceUrlItem(0, 0, "UrlItemList 0",
-                        "TestUrl Grp0 - Item0"
-                        , "TestUrl Grp0 - Item1"
-                        , "TestUrl Grp0 - Item2"
+                        , new SelectableServiceUrlItem(0, 0, "UrlItemList 0"
+                        , new CorePickerItem("Potato", "TestUrl Grp0 - Item0")
+                        , new CorePickerItem("Tomato", "TestUrl Grp0 - Item1")
+                        , new CorePickerItem("Garlic", "TestUrl Grp0 - Item2")
                 )
-                        , new SelectableServiceUrlItem(1, 2, "UrlItemList 1",
-                        "TestUrl Grp1 - Item0"
-                        , "TestUrl Grp1 - Item1"
-                        , "TestUrl Grp1 - Item2"
-                        , "TestUrl Grp1 - Item3"
+                        , new SelectableServiceUrlItem(1, 2, "UrlItemList 1"
+                        , new CorePickerItem("Orange", "TestUrl Grp1 - Item0")
+                        , new CorePickerItem("Banana", "TestUrl Grp1 - Item1")
+                        , new CorePickerItem("Cherry", "TestUrl Grp1 - Item2")
+                        , new CorePickerItem("Kiwano", "TestUrl Grp1 - Item3")
                 )
-                        , new SelectableServiceUrlItem(2, 1, "UrlItemList 2",
-                        "TestUrl Grp2 - Item0"
-                        , "TestUrl Grp2 - Item1"
+                        , new SelectableServiceUrlItem(2, 1, "UrlItemList 2"
+                        , new CorePickerItem("Berry", "TestUrl Grp2 - Item0")
+                        , new CorePickerItem("Melon", "TestUrl Grp2 - Item1")
                 )
                 );
             }

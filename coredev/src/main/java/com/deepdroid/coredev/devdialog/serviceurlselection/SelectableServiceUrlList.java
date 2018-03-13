@@ -56,8 +56,8 @@ public class SelectableServiceUrlList extends CoreDevListWithoutScroll {
         }
 
         private void setData(SelectableServiceUrlItem data, final int index) {
-            titleTv.setText(data.title);
-            urlTv.setText(data.getSelectedUrl());
+            titleTv.setText(data.title + " : " + data.getSelectedUrl().title);
+            urlTv.setText(data.getSelectedUrl().value);
             changeUrlV.setOnClickListener(new OnClickListener() {
                 @Override
                 public void onClick(View v) {
