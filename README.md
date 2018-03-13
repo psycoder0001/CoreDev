@@ -41,9 +41,9 @@ II.B.1. * Basic case where you have single api in your app.
     public SelectableServiceUrlData getServiceUrlLists() {
         return new SelectableServiceUrlData(applicationContext
                 , new SelectableServiceUrlItem(API_MOBIL, defaultServiceUrlIndex, "Mobil Api"
-                , "http://prd.yourmobilapi.com.tr/api/"
-                , "http://tst.yourmobilapi.com.tr/api/"
-                , "http://dev.yourmobilapi.com.tr/api/")
+                , new CorePickerItem("Potato", "http://prd.yourmobilapi.com.tr/api/")
+                , new CorePickerItem("Tomato", "http://tst.yourmobilapi.com.tr/api/")
+                , new CorePickerItem("Garlic", "http://dev.yourmobilapi.com.tr/api/"))
         );
     }
     
@@ -65,17 +65,17 @@ II.B.1. * Basic case where you have single api in your app.
     public SelectableServiceUrlData getServiceUrlLists() {
         return new SelectableServiceUrlData(applicationContext
                 , new SelectableServiceUrlItem(API_MOBIL, defaultServiceUrlIndex, "Mobil Api"
-                , "http://prd.yourmobilapi.com.tr/api/"
-                , "http://tst.yourmobilapi.com.tr/api/"
-                , "http://dev.yourmobilapi.com.tr/api/")
+                , new CorePickerItem("M PROD", "http://prd.yourmobilapi.com.tr/api/")
+                , new CorePickerItem("MTEST", "http://tst.yourmobilapi.com.tr/api/")
+                , new CorePickerItem("M DEV", "http://dev.yourmobilapi.com.tr/api/"))
                 , new SelectableServiceUrlItem(API_SOCKET, defaultServiceUrlIndex, "Socket Api"
-                , "http://prd.yoursocketapi.com.tr/api/"
-                , "http://tst.yoursocketapi.com.tr/api/"
-                , "http://dev.yoursocketapi.com.tr/api/")
+                , new CorePickerItem("S PROD", "http://prd.yoursocketapi.com.tr/api/")
+                , new CorePickerItem("S TEST", "http://tst.yoursocketapi.com.tr/api/")
+                , new CorePickerItem("S DEV", "http://dev.yoursocketapi.com.tr/api/"))
                 , new SelectableServiceUrlItem(API_PUSH, defaultServiceUrlIndex, "Push Api"
-                , "http://prd.yourpushapi.com.tr/api/"
-                , "http://tst.yourpushapi.com.tr/api/"
-                , "http://dev.yourpushapi.com.tr/api/")
+                , new CorePickerItem("P PROD", "http://prd.yourpushapi.com.tr/api/")
+                , new CorePickerItem("P TEST", "http://tst.yourpushapi.com.tr/api/")
+                , new CorePickerItem("P DEV", "http://dev.yourpushapi.com.tr/api/"))
         );
     }
 ```
