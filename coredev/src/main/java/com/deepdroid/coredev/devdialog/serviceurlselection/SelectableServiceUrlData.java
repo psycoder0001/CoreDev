@@ -3,6 +3,8 @@ package com.deepdroid.coredev.devdialog.serviceurlselection;
 import android.content.Context;
 import android.util.Log;
 
+import com.deepdroid.coredev.corepicker.CorePickerItem;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -30,9 +32,9 @@ public class SelectableServiceUrlData {
         loadPreviousSelections(applicationContext);
     }
 
-    public String getSelectedUrlAt(int index) {
+    public CorePickerItem getSelectedUrlItemAt(int index) {
         if (!isIndexAvailable(index)) {
-            return "";
+            return null;
         }
         return selectableServiceUrlItemList.get(index).getSelectedUrl();
     }
@@ -44,7 +46,7 @@ public class SelectableServiceUrlData {
         return selectableServiceUrlItemList.get(index).setSelectedIndex(newSelectionIndex);
     }
 
-    public List<String> getUrlListAt(int index) {
+    public List<CorePickerItem> getUrlListAt(int index) {
         if (!isIndexAvailable(index)) {
             return new ArrayList<>();
         }

@@ -1,21 +1,34 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    android:id="@+id/core_picker_item"
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/core_picker_item"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="#fff"
     android:orientation="vertical">
 
-    <AbsoluteLayout
+    <LinearLayout
         android:id="@+id/core_picker_root"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:orientation="vertical"
         android:padding="15dp">
 
         <TextView
-            android:id="@+id/core_picker_text"
+            android:id="@+id/core_picker_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:includeFontPadding="false"
+            android:singleLine="true"
+            android:textColor="#6D6D6D"
+            android:textSize="11sp"
+            android:textStyle="bold"
+            android:typeface="monospace"
+            tools:text="Text" />
+
+        <TextView
+            android:id="@+id/core_picker_value"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:ellipsize="end"
@@ -23,20 +36,34 @@
             android:singleLine="true"
             android:textColor="#6D6D6D"
             android:textSize="15sp"
-            android:textStyle="bold"
+            android:textStyle="normal"
             android:typeface="monospace"
-            tools:text="Text"/>
-    </AbsoluteLayout>
+            tools:text="Text" />
+    </LinearLayout>
 
-    <AbsoluteLayout
+    <LinearLayout
         android:id="@+id/core_picker_root_selected"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:background="#FFF0F0F0"
+        android:orientation="vertical"
         android:padding="15dp">
 
         <TextView
-            android:id="@+id/core_picker_text_selected"
+            android:id="@+id/core_picker_title_selected"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:includeFontPadding="false"
+            android:singleLine="true"
+            android:textColor="@color/dev_clr_code_green"
+            android:textSize="11sp"
+            android:textStyle="bold"
+            android:typeface="monospace"
+            tools:text="Text" />
+
+        <TextView
+            android:id="@+id/core_picker_value_selected"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:ellipsize="end"
@@ -44,8 +71,8 @@
             android:singleLine="true"
             android:textColor="@color/dev_clr_code_green"
             android:textSize="15sp"
-            android:textStyle="bold"
+            android:textStyle="normal"
             android:typeface="monospace"
-            tools:text="Text"/>
-    </AbsoluteLayout>
+            tools:text="Text" />
+    </LinearLayout>
 </RelativeLayout>
