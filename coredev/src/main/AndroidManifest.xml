@@ -1,7 +1,5 @@
-<manifest package="com.deepdroid.coredev"
-          xmlns:android="http://schemas.android.com/apk/res/android">
+<manifest package="com.deepdroid.coredev">
 
-    <uses-sdk android:minSdkVersion="16"/>
-    <application/>
+    <application />
 
 </manifest>
