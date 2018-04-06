@@ -1,5 +1,8 @@
 package com.deepdroid.coredev.devdialog;
 
+import android.view.View;
+import android.view.ViewGroup;
+
 import com.deepdroid.coredev.devdialog.serviceurlselection.SelectableServiceUrlData;
 import com.deepdroid.coredev.devdialog.serviceurlselection.UrlSelectionItem;
 import com.deepdroid.coredev.devdialog.uifordevdialog.CustomDevelopmentItem;
@@ -22,4 +25,8 @@ public abstract class DevelopmentDialogListener {
     public abstract void onCustomButtonClicked(int index);
 
     public abstract void onSelectionChanged(UrlSelectionItem selectionItem);
+
+    public View getCustomBackgroundView(ViewGroup parent) {
+        return null;
+    }
 }

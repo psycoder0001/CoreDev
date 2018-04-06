@@ -1,336 +1,317 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout android:id="@+id/development_root"
-              xmlns:android="http://schemas.android.com/apk/res/android"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent"
-              android:background="@drawable/dev_bg_dialog"
-              android:orientation="vertical"
-              android:padding="10dp">
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/development_root"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:clipChildren="false"
+    android:clipToPadding="false">
 
-    <TextView
+    <RelativeLayout
+        android:id="@+id/development_background"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:text="@string/cd_development_options"
-        android:textColor="@color/dev_clr_code_green"
-        android:textSize="15sp"
-        android:textStyle="bold"
-        android:typeface="monospace"/>
+        android:layout_height="match_parent"
+        android:layout_margin="2dp">
 
-    <View
-        style="@style/horizontal_line"
-        android:layout_marginTop="2.5dp"
-        android:background="@color/dev_clr_code_green"/>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-
-        <TextView
-            android:id="@+id/development_application_version"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:text="@string/cd_dev_dummy_versionname"
-            android:textColor="@color/dev_clr_code_green"
-            android:textSize="12sp"
-            android:textStyle="bold"
-            android:typeface="monospace"/>
-
-        <View style="@style/horizontal_bumper"/>
-
-        <TextView
-            android:id="@+id/development_values_type"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:text="@string/cd_dev_dummy_screentype"
-            android:textColor="@color/dev_clr_code_green"
-            android:textSize="12sp"
-            android:textStyle="bold"
-            android:typeface="monospace"/>
-    </LinearLayout>
-
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1">
-
-        <RelativeLayout
+        <View
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <!--SERVICE LINK CHANGE OPTION-->
-            <RelativeLayout
-                android:id="@+id/development_service_link_area"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:background="@drawable/dev_bg_button_transparent"
-                android:minHeight="75dp"
-                android:paddingBottom="16dp"
-                android:paddingLeft="10dp"
-                android:paddingRight="10dp"
-                android:paddingTop="15dp">
-                <!--
-                                <LinearLayout
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:orientation="vertical">
-
-                                    <include layout="@layout/item_url_selection"/>
-
-                                    <include layout="@layout/item_url_selection"/>
-
-                                    <include layout="@layout/item_url_selection"/>
-
-                                    <include layout="@layout/item_url_selection"/>
-                                </LinearLayout>
-                -->
-            </RelativeLayout>
-
-            <TextView
-                android:id="@+id/development_service_link_header"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:layout_marginStart="10dp"
-                android:layout_marginTop="11dp"
-                android:background="@drawable/dev_bg_button_transparent"
-                android:paddingBottom="2dp"
-                android:paddingLeft="10dp"
-                android:paddingRight="10dp"
-                android:paddingTop="2dp"
-                android:text="@string/cd_select_service_link"
-                android:textColor="@color/dev_clr_code_green"
-                android:textSize="12.5dp"
-                android:textStyle="bold"
-                android:typeface="monospace"/>
-
-            <TextView
-                android:id="@+id/development_service_link_clear_selection"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/development_service_link_area"
-                android:layout_marginLeft="10dp"
-                android:layout_marginStart="10dp"
-                android:layout_marginTop="-10dp"
-                android:background="@drawable/dev_bg_button"
-                android:gravity="center"
-                android:padding="5dp"
-                android:paddingLeft="10dp"
-                android:paddingRight="10dp"
-                android:text="@string/cd_set_to_default"
-                android:textColor="@color/dev_clr_code_green"
-                android:textSize="12sp"
-                android:textStyle="bold"
-                android:typeface="monospace"/>
-
-            <TextView
-                android:id="@+id/development_service_link_apply_selection"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentEnd="true"
-                android:layout_alignParentRight="true"
-                android:layout_below="@id/development_service_link_area"
-                android:layout_marginEnd="10dp"
-                android:layout_marginRight="10dp"
-                android:layout_marginTop="-10dp"
-                android:background="@drawable/dev_bg_button"
-                android:gravity="center"
-                android:padding="5dp"
-                android:paddingLeft="10dp"
-                android:paddingRight="10dp"
-                android:text="@string/cd_apply_selection"
-                android:textColor="@color/dev_clr_code_green"
-                android:textSize="12sp"
-                android:textStyle="bold"
-                android:typeface="monospace"/>
-
-            <!--DEVELOPMENT OPTIONS HEADER-->
-            <TextView
-                android:id="@+id/development_options_header"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/development_service_link_apply_selection"
-                android:layout_marginTop="20dp"
-                android:text="@string/cd_txt_development_default_options"
-                android:textColor="@color/dev_clr_code_green"
-                android:textSize="12.5dp"
-                android:textStyle="bold"
-                android:typeface="monospace"/>
-
-            <View
-                android:id="@+id/development_options_header_bottom_line"
-                style="@style/horizontal_line"
-                android:layout_below="@id/development_options_header"
-                android:layout_marginTop="2.5dp"
-                android:background="@color/dev_clr_code_green"/>
-
-
-            <!--DEVELOPMENT BUTTON VISIBILITY OPTION-->
-            <CheckBox
-                android:id="@+id/development_mode_check"
-                style="@style/style_developement_checkbox_circle"
-                android:layout_below="@id/development_options_header"
-                android:layout_marginTop="10dp"/>
-
-            <TextView
-                android:id="@+id/development_mode_text"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignBottom="@id/development_mode_check"
-                android:layout_alignTop="@id/development_mode_check"
-                android:layout_marginLeft="7.5dp"
-                android:layout_marginStart="7.5dp"
-                android:layout_toEndOf="@id/development_mode_check"
-                android:layout_toRightOf="@id/development_mode_check"
-                android:gravity="center_vertical"
-                android:text="@string/cd_development_mode_enabled"
-                android:textColor="@color/dev_clr_code_green"
-                android:textSize="12.5dp"
-                android:textStyle="bold"
-                android:typeface="monospace"/>
-
-            <CheckBox
-                android:id="@+id/development_ufo_check"
-                style="@style/style_developement_checkbox_circle"
-                android:layout_below="@id/development_mode_check"
-                android:layout_marginTop="10dp"/>
-
-            <TextView
-                android:id="@+id/development_ufo_text"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignBottom="@id/development_ufo_check"
-                android:layout_alignTop="@id/development_ufo_check"
-                android:layout_marginLeft="7.5dp"
-                android:layout_marginStart="7.5dp"
-                android:layout_toEndOf="@id/development_ufo_check"
-                android:layout_toRightOf="@id/development_ufo_check"
-                android:gravity="center_vertical"
-                android:text="@string/cd_development_button_visible"
-                android:textColor="@color/dev_clr_code_green"
-                android:textSize="12.5dp"
-                android:textStyle="bold"
-                android:typeface="monospace"/>
-
-            <!--AUTO FILL TEXT AREA-->
-            <CheckBox
-                android:id="@+id/development_auto_fill_check"
-                style="@style/style_developement_checkbox_circle"
-                android:layout_below="@id/development_ufo_check"
-                android:layout_marginTop="10dp"/>
-
-            <TextView
-                android:id="@+id/development_auto_fill_text"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignBottom="@id/development_auto_fill_check"
-                android:layout_alignTop="@id/development_auto_fill_check"
-                android:layout_marginLeft="7.5dp"
-                android:layout_marginStart="7.5dp"
-                android:layout_toEndOf="@id/development_auto_fill_check"
-                android:layout_toRightOf="@id/development_auto_fill_check"
-                android:gravity="center_vertical"
-                android:text="@string/cd_editable_area_auto_fill_enabled"
-                android:textColor="@color/dev_clr_code_green"
-                android:textSize="12.5dp"
-                android:textStyle="bold"
-                android:typeface="monospace"/>
-
-            <!--KEEP DEVICE AWAKE-->
-            <CheckBox
-                android:id="@+id/development_stay_awake_check"
-                style="@style/style_developement_checkbox_circle"
-                android:layout_below="@id/development_auto_fill_check"
-                android:layout_marginTop="10dp"/>
-
-            <TextView
-                android:id="@+id/development_stay_awake_text"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignBottom="@id/development_stay_awake_check"
-                android:layout_alignTop="@id/development_stay_awake_check"
-                android:layout_marginLeft="7.5dp"
-                android:layout_marginStart="7.5dp"
-                android:layout_toEndOf="@id/development_stay_awake_check"
-                android:layout_toRightOf="@id/development_stay_awake_check"
-                android:gravity="center_vertical"
-                android:text="@string/cd_force_device_to_stay_awake"
-                android:textColor="@color/dev_clr_code_green"
-                android:textSize="12.5dp"
-                android:textStyle="bold"
-                android:typeface="monospace"/>
-
-
-            <!--DEVELOPMENT OPTIONS HEADER-->
-            <TextView
-                android:id="@+id/development_options_custom_options_header"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/development_stay_awake_text"
-                android:layout_marginTop="20dp"
-                android:text="@string/cd_txt_development_custom_options_header"
-                android:textColor="@color/dev_clr_code_green"
-                android:textSize="12.5dp"
-                android:textStyle="bold"
-                android:typeface="monospace"/>
-
-            <View
-                android:id="@+id/development_options_footer_line"
-                style="@style/horizontal_line"
-                android:layout_below="@id/development_options_custom_options_header"
-                android:layout_marginBottom="10dp"
-                android:layout_marginTop="10dp"
-                android:background="@color/dev_clr_code_green"/>
-
-            <RelativeLayout
-                android:id="@+id/development_custom_checks_area"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/development_options_footer_line"
-                android:minHeight="25dp"
-                android:paddingBottom="25dp"/>
-        </RelativeLayout>
-    </ScrollView>
-
-    <View
-        style="@style/horizontal_line"
-        android:layout_marginBottom="2.5dp"
-        android:layout_marginTop="2.5dp"
-        android:background="@color/dev_clr_code_green"/>
+            android:layout_height="match_parent"
+            android:background="@android:color/black" />
+    </RelativeLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:layout_height="match_parent"
+        android:background="@drawable/dev_bg_dialog_transparent"
+        android:orientation="vertical"
+        android:padding="10dp">
 
         <TextView
-            android:id="@+id/development_restart_app"
-            android:layout_width="125dp"
-            android:layout_height="25dp"
-            android:background="@drawable/dev_bg_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:gravity="center"
-            android:text="@string/cd_restart_app"
+            android:text="@string/cd_development_options"
             android:textColor="@color/dev_clr_code_green"
-            android:textSize="12.5dp"
+            android:textSize="15sp"
             android:textStyle="bold"
-            android:typeface="monospace"/>
+            android:typeface="monospace" />
 
-        <View style="@style/horizontal_bumper"/>
+        <View
+            style="@style/horizontal_line"
+            android:layout_marginTop="2.5dp"
+            android:background="@color/dev_clr_code_green" />
 
-        <TextView
-            android:id="@+id/development_ok"
-            android:layout_width="100dp"
-            android:layout_height="25dp"
-            android:background="@drawable/dev_bg_button"
-            android:gravity="center"
-            android:text="@string/cd_ok"
-            android:textColor="@color/dev_clr_code_green"
-            android:textSize="12.5dp"
-            android:textStyle="bold"
-            android:typeface="monospace"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/development_application_version"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="@string/cd_dev_dummy_versionname"
+                android:textColor="@color/dev_clr_code_green"
+                android:textSize="12sp"
+                android:textStyle="bold"
+                android:typeface="monospace" />
+
+            <View style="@style/horizontal_bumper" />
+
+            <TextView
+                android:id="@+id/development_values_type"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="@string/cd_dev_dummy_screentype"
+                android:textColor="@color/dev_clr_code_green"
+                android:textSize="12sp"
+                android:textStyle="bold"
+                android:typeface="monospace" />
+        </LinearLayout>
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <!--SERVICE LINK CHANGE OPTION-->
+                <RelativeLayout
+                    android:id="@+id/development_service_link_area"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:background="@drawable/dev_bg_button_transparent"
+                    android:minHeight="75dp"
+                    android:paddingBottom="16dp"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="10dp"
+                    android:paddingTop="15dp">
+
+                </RelativeLayout>
+
+                <TextView
+                    android:id="@+id/development_service_link_header"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="11dp"
+                    android:background="@drawable/dev_bg_button_black"
+                    android:paddingBottom="2dp"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="10dp"
+                    android:paddingTop="2dp"
+                    android:text="@string/cd_select_service_link"
+                    android:textColor="@color/dev_clr_code_green"
+                    android:textSize="12.5dp"
+                    android:textStyle="bold"
+                    android:typeface="monospace" />
+
+                <TextView
+                    android:id="@+id/development_service_link_clear_selection"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/development_service_link_area"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="-10dp"
+                    android:background="@drawable/dev_bg_button"
+                    android:gravity="center"
+                    android:padding="5dp"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="10dp"
+                    android:text="@string/cd_set_to_default"
+                    android:textColor="@color/dev_clr_code_green"
+                    android:textSize="12sp"
+                    android:textStyle="bold"
+                    android:typeface="monospace" />
+
+                <TextView
+                    android:id="@+id/development_service_link_apply_selection"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_below="@id/development_service_link_area"
+                    android:layout_marginEnd="10dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginTop="-10dp"
+                    android:background="@drawable/dev_bg_button"
+                    android:gravity="center"
+                    android:padding="5dp"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="10dp"
+                    android:text="@string/cd_apply_selection"
+                    android:textColor="@color/dev_clr_code_green"
+                    android:textSize="12sp"
+                    android:textStyle="bold"
+                    android:typeface="monospace" />
+
+                <!--DEVELOPMENT OPTIONS HEADER-->
+                <TextView
+                    android:id="@+id/development_options_header"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/development_service_link_apply_selection"
+                    android:layout_marginTop="20dp"
+                    android:text="@string/cd_txt_development_default_options"
+                    android:textColor="@color/dev_clr_code_green"
+                    android:textSize="12.5dp"
+                    android:textStyle="bold"
+                    android:typeface="monospace" />
+
+                <View
+                    android:id="@+id/development_options_header_bottom_line"
+                    style="@style/horizontal_line"
+                    android:layout_below="@id/development_options_header"
+                    android:layout_marginTop="2.5dp"
+                    android:background="@color/dev_clr_code_green" />
+
+
+                <!--DEVELOPMENT BUTTON VISIBILITY OPTION-->
+                <CheckBox
+                    android:id="@+id/development_mode_check"
+                    style="@style/style_developement_checkbox_circle"
+                    android:layout_below="@id/development_options_header"
+                    android:layout_marginTop="10dp" />
+
+                <TextView
+                    android:id="@+id/development_mode_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBottom="@id/development_mode_check"
+                    android:layout_alignTop="@id/development_mode_check"
+                    android:layout_marginLeft="7.5dp"
+                    android:layout_marginStart="7.5dp"
+                    android:layout_toEndOf="@id/development_mode_check"
+                    android:layout_toRightOf="@id/development_mode_check"
+                    android:gravity="center_vertical"
+                    android:text="@string/cd_development_mode_enabled"
+                    android:textColor="@color/dev_clr_code_green"
+                    android:textSize="12.5dp"
+                    android:textStyle="bold"
+                    android:typeface="monospace" />
+
+                <CheckBox
+                    android:id="@+id/development_ufo_check"
+                    style="@style/style_developement_checkbox_circle"
+                    android:layout_below="@id/development_mode_check"
+                    android:layout_marginTop="10dp" />
+
+                <TextView
+                    android:id="@+id/development_ufo_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBottom="@id/development_ufo_check"
+                    android:layout_alignTop="@id/development_ufo_check"
+                    android:layout_marginLeft="7.5dp"
+                    android:layout_marginStart="7.5dp"
+                    android:layout_toEndOf="@id/development_ufo_check"
+                    android:layout_toRightOf="@id/development_ufo_check"
+                    android:gravity="center_vertical"
+                    android:text="@string/cd_development_button_visible"
+                    android:textColor="@color/dev_clr_code_green"
+                    android:textSize="12.5dp"
+                    android:textStyle="bold"
+                    android:typeface="monospace" />
+
+                <!--KEEP DEVICE AWAKE-->
+                <CheckBox
+                    android:id="@+id/development_stay_awake_check"
+                    style="@style/style_developement_checkbox_circle"
+                    android:layout_below="@id/development_ufo_check"
+                    android:layout_marginTop="10dp" />
+
+                <TextView
+                    android:id="@+id/development_stay_awake_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBottom="@id/development_stay_awake_check"
+                    android:layout_alignTop="@id/development_stay_awake_check"
+                    android:layout_marginLeft="7.5dp"
+                    android:layout_marginStart="7.5dp"
+                    android:layout_toEndOf="@id/development_stay_awake_check"
+                    android:layout_toRightOf="@id/development_stay_awake_check"
+                    android:gravity="center_vertical"
+                    android:text="@string/cd_force_device_to_stay_awake"
+                    android:textColor="@color/dev_clr_code_green"
+                    android:textSize="12.5dp"
+                    android:textStyle="bold"
+                    android:typeface="monospace" />
+
+
+                <!--DEVELOPMENT OPTIONS HEADER-->
+                <TextView
+                    android:id="@+id/development_options_custom_options_header"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/development_stay_awake_text"
+                    android:layout_marginTop="20dp"
+                    android:text="@string/cd_txt_development_custom_options_header"
+                    android:textColor="@color/dev_clr_code_green"
+                    android:textSize="12.5dp"
+                    android:textStyle="bold"
+                    android:typeface="monospace" />
+
+                <View
+                    android:id="@+id/development_options_footer_line"
+                    style="@style/horizontal_line"
+                    android:layout_below="@id/development_options_custom_options_header"
+                    android:layout_marginBottom="10dp"
+                    android:layout_marginTop="10dp"
+                    android:background="@color/dev_clr_code_green" />
+
+                <RelativeLayout
+                    android:id="@+id/development_custom_checks_area"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/development_options_footer_line"
+                    android:minHeight="25dp"
+                    android:paddingBottom="25dp" />
+            </RelativeLayout>
+        </ScrollView>
+
+        <View
+            style="@style/horizontal_line"
+            android:layout_marginBottom="2.5dp"
+            android:layout_marginTop="2.5dp"
+            android:background="@color/dev_clr_code_green" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/development_restart_app"
+                android:layout_width="125dp"
+                android:layout_height="25dp"
+                android:background="@drawable/dev_bg_button"
+                android:gravity="center"
+                android:text="@string/cd_restart_app"
+                android:textColor="@color/dev_clr_code_green"
+                android:textSize="12.5dp"
+                android:textStyle="bold"
+                android:typeface="monospace" />
+
+            <View style="@style/horizontal_bumper" />
+
+            <TextView
+                android:id="@+id/development_ok"
+                android:layout_width="100dp"
+                android:layout_height="25dp"
+                android:background="@drawable/dev_bg_button"
+                android:gravity="center"
+                android:text="@string/cd_ok"
+                android:textColor="@color/dev_clr_code_green"
+                android:textSize="12.5dp"
+                android:textStyle="bold"
+                android:typeface="monospace" />
+        </LinearLayout>
     </LinearLayout>
-</LinearLayout>
+</RelativeLayout>

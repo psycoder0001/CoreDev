@@ -38,11 +38,11 @@ public class DevelopmentDialog extends Dialog {
 
     private static final String DEVELOPMENT_MODE = "DEVELOPMENT_MODE";
     private static final String DEVELOPMENT_BUTTON_MODE = "DEVELOPMENT_BUTTON_MODE";
-    private static final String DEVELOPMENT_AUTOFILL_MODE = "DEVELOPMENT_AUTOFILL_MODE";
     private static final String DEVELOPMENT_STAY_AWAKE_MODE = "DEVELOPMENT_STAY_AWAKE_MODE";
     private static final String TAG = DevelopmentDialog.class.getSimpleName();
 
     private View rootV;
+    private RelativeLayout backgroundRl;
     private TextView versionNameTv;
     private TextView valuesTypeNameTv;
     private RelativeLayout serviceLinkArea;
@@ -52,8 +52,6 @@ public class DevelopmentDialog extends Dialog {
     private TextView enableDevTv;
     private CheckBox showUfoCb;
     private TextView showUfoTv;
-    private CheckBox autoFillCb;
-    private TextView autoFillTv;
     private CheckBox stayAwakeCb;
     private TextView stayAwakeTv;
     private RelativeLayout customOptionsArea;
@@ -101,6 +99,7 @@ public class DevelopmentDialog extends Dialog {
         }
 
         rootV = findViewById(R.id.development_root);
+        backgroundRl = findViewById(R.id.development_background);
         versionNameTv = findViewById(R.id.development_application_version);
         serviceLinkArea = findViewById(R.id.development_service_link_area);
         setToDefaultTv = findViewById(R.id.development_service_link_clear_selection);
@@ -110,8 +109,6 @@ public class DevelopmentDialog extends Dialog {
         enableDevCb = findViewById(R.id.development_mode_check);
         showUfoTv = findViewById(R.id.development_ufo_text);
         showUfoCb = findViewById(R.id.development_ufo_check);
-        autoFillTv = findViewById(R.id.development_auto_fill_text);
-        autoFillCb = findViewById(R.id.development_auto_fill_check);
         stayAwakeTv = findViewById(R.id.development_stay_awake_text);
         stayAwakeCb = findViewById(R.id.development_stay_awake_check);
         customOptionsArea = findViewById(R.id.development_custom_checks_area);
@@ -144,21 +141,26 @@ public class DevelopmentDialog extends Dialog {
         // SET CH_BOX
         enableDevCb.setChecked(isDevelopmentEnabled(getAppCx()));
         showUfoCb.setChecked(isDevelopmentButtonEnabled(getAppCx()));
-        autoFillCb.setChecked(isDevelopmentAutoFillEnabled(getAppCx()));
         stayAwakeCb.setChecked(isDevelopmentStayAwakeEnabled(getAppCx()));
         // SET LISTENERS
         enableDevCb.setOnCheckedChangeListener(mOnCheckChangedListener);
         showUfoCb.setOnCheckedChangeListener(mOnCheckChangedListener);
-        autoFillCb.setOnCheckedChangeListener(mOnCheckChangedListener);
         stayAwakeCb.setOnCheckedChangeListener(mOnCheckChangedListener);
         setToDefaultTv.setOnClickListener(mOnClickListener);
         applyServiceLinkSelectionsTv.setOnClickListener(mOnClickListener);
         enableDevTv.setOnClickListener(mOnClickListener);
         showUfoTv.setOnClickListener(mOnClickListener);
-        autoFillTv.setOnClickListener(mOnClickListener);
         stayAwakeTv.setOnClickListener(mOnClickListener);
         restartTv.setOnClickListener(mOnClickListener);
         okTv.setOnClickListener(mOnClickListener);
+
+        if (devDialogListener != null) {
+            View customBackground = devDialogListener.getCustomBackgroundView(backgroundRl);
+            if (customBackground != null) {
+                backgroundRl.removeAllViews();
+                backgroundRl.addView(customBackground);
+            }
+        }
     }
 
     private void initializeSelectableServiceUrlList(boolean forceRecreateData, boolean forceRecreateUi) {
@@ -230,8 +232,6 @@ public class DevelopmentDialog extends Dialog {
                 enableDevCb.performClick();
             } else if (view == showUfoTv) {
                 showUfoCb.performClick();
-            } else if (view == autoFillTv) {
-                autoFillCb.performClick();
             } else if (view == stayAwakeTv) {
                 stayAwakeCb.performClick();
             } else if (view == restartTv) {
@@ -249,8 +249,6 @@ public class DevelopmentDialog extends Dialog {
                 setDevelopmentEnabled(getAppCx(), isChecked);
             } else if (compoundButton == showUfoCb) {
                 setDevelopmentButtonEnabled(getAppCx(), isChecked);
-            } else if (compoundButton == autoFillCb) {
-                setDevelopmentAutoFillEnabled(getAppCx(), isChecked);
             } else if (compoundButton == stayAwakeCb) {
                 setDevelopmentStayAwakeEnabled(getAppCx(), isChecked);
                 if (getWindow() == null) {
@@ -277,10 +275,6 @@ public class DevelopmentDialog extends Dialog {
         return HelperForPref.getInt(applicationContext, DEVELOPMENT_BUTTON_MODE, 1) == 1;
     }
 
-    public static boolean isDevelopmentAutoFillEnabled(Context applicationContext) {
-        return HelperForPref.getBoolean(applicationContext, DEVELOPMENT_AUTOFILL_MODE, false);
-    }
-
     public static boolean isDevelopmentStayAwakeEnabled(Context applicationContext) {
         return HelperForPref.getBoolean(applicationContext, DEVELOPMENT_STAY_AWAKE_MODE, false);
     }
@@ -292,10 +286,6 @@ public class DevelopmentDialog extends Dialog {
 
     private static void setDevelopmentButtonEnabled(Context applicationContext, boolean newValue) {
         HelperForPref.putInt(applicationContext, DEVELOPMENT_BUTTON_MODE, newValue ? 1 : -1);
-    }
-
-    private static void setDevelopmentAutoFillEnabled(Context applicationContext, boolean newValue) {
-        HelperForPref.putBoolean(applicationContext, DEVELOPMENT_AUTOFILL_MODE, newValue);
     }
 
     private static void setDevelopmentStayAwakeEnabled(Context applicationContext, boolean newValue) {

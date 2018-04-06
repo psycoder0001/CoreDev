@@ -9,7 +9,6 @@
     <string name="cd_restart_app"><![CDATA[RESTART APP >]]></string>
     <string name="cd_ok">OK</string>
     <string name="cd_force_device_to_stay_awake">Force Device to Stay Awake</string>
-    <string name="cd_editable_area_auto_fill_enabled">Editable Area Auto-fill Enabled</string>
     <string name="cd_development_button_visible">Development Button Visible</string>
     <string name="cd_development_mode_enabled">Development Mode Enabled</string>
     <string name="cd_dev_dummy_screentype">ScreenType</string>

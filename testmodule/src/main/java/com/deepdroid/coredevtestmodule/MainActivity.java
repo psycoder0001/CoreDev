@@ -4,6 +4,8 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 
@@ -102,6 +104,11 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onCustomButtonClicked(int index) {
 
+            }
+
+            @Override
+            public View getCustomBackgroundView(ViewGroup parent) {
+                return LayoutInflater.from(getApplicationContext()).inflate(R.layout.layout_custom_bg, parent, false);
             }
         };
     }
