@@ -6,12 +6,15 @@ import com.deepdroid.coredev.devdialog.serviceurlselection.SelectableServiceUrlD
  * Created by evrenozturk on 07.11.2016.
  */
 public class DevelopmentDialogData {
-    public final SelectableServiceUrlData selectableServiceUrlData;
-    public DevelopmentDialogListener devDialogListener;
+    protected SelectableServiceUrlData selectableServiceUrlData;
+    protected DevelopmentDialogListener devDialogListener;
+    public boolean isOkButtonEnabled = false;
+    public boolean isRestartButtonEnabled = false;
+    public boolean isBackPressEnabled = true;
 
-    public DevelopmentDialogData(SelectableServiceUrlData selectableServiceUrlData, DevelopmentDialogListener developmentDialogListener) {
-        this.selectableServiceUrlData = selectableServiceUrlData;
-        this.devDialogListener = developmentDialogListener;
+    public DevelopmentDialogData(boolean isOkButtonEnabled, boolean isRestartButtonEnabled, boolean isBackPressEnabled) {
+        this.isOkButtonEnabled = isOkButtonEnabled;
+        this.isRestartButtonEnabled = isRestartButtonEnabled;
+        this.isBackPressEnabled = isBackPressEnabled;
     }
-
 }

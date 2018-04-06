@@ -30,7 +30,8 @@ II.A. Attach to your activity root.
             // ... Overriden abstract methods
             // ...
         };
-        DevUFO.attachUfo(BaseActivity.this, activityRootView, null, developmentDialogListener);
+        DevelopmentDialogData devDialogData = new DevelopmentDialogData(true, true, false); // Can be null for default params
+        DevUFO.attachUfo(BaseActivity.this, activityRootView, null, developmentDialogListener, devDialogData);
     }
 ```
 II.B. Adding selectable urls.

@@ -176,7 +176,8 @@ public class DevUFO extends AppCompatImageView {
     public static void attachUfo(final Activity activityContext
             , final ViewGroup rootView
             , final OnClickListener externalOnClickListenerForUFO
-            , final DevelopmentDialogListener developmentDialogListener) {
+            , final DevelopmentDialogListener developmentDialogListener
+            , final DevelopmentDialogData developmentDialogData) {
         try {
             if (developmentDialogListener == null) {
                 Log.println(Log.ASSERT, "DevUFO", "DevelopmentDialogListener cannot be null");
@@ -206,8 +207,10 @@ public class DevUFO extends AppCompatImageView {
                 @Override
                 public void onClick(View v) {
                     // SHOW DEVELOPMENT DIALOG
-                    DevelopmentDialogData dataTransferObject = new DevelopmentDialogData(selectableServiceUrlData, developmentDialogListener);
-                    DevelopmentDialog developmentDialog = DevelopmentDialog.getInstance(activityContext, dataTransferObject);
+                    DevelopmentDialog developmentDialog = DevelopmentDialog.getInstance(activityContext
+                            , selectableServiceUrlData
+                            , developmentDialogListener
+                            , developmentDialogData);
                     developmentDialog.show();
 
                     // INFORM EVENT TO EXTERNAL LISTENER

@@ -11,6 +11,7 @@ import android.view.WindowManager;
 
 import com.deepdroid.coredev.corepicker.CorePickerItem;
 import com.deepdroid.coredev.devdialog.DevelopmentDialog;
+import com.deepdroid.coredev.devdialog.DevelopmentDialogData;
 import com.deepdroid.coredev.devdialog.DevelopmentDialogListener;
 import com.deepdroid.coredev.devdialog.serviceurlselection.SelectableServiceUrlData;
 import com.deepdroid.coredev.devdialog.serviceurlselection.SelectableServiceUrlItem;
@@ -42,7 +43,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     protected void initDevelopmentDialog(ViewGroup rootView) {
-        DevUFO.attachUfo(this, rootView, null, getDevelopmentDialogCustomOptionHelper());
+        DevelopmentDialogData devDialogData = new DevelopmentDialogData(true, true, false);
+        DevUFO.attachUfo(this, rootView, null, getDevelopmentDialogCustomOptionHelper(), devDialogData);
         if (DevelopmentDialog.isDevelopmentEnabled(getApplicationContext()) && DevelopmentDialog.isDevelopmentStayAwakeEnabled(getApplicationContext())) {
             getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);   // Force device awake & screen on.
         }

@@ -59,17 +59,25 @@ public class DevelopmentDialog extends Dialog {
     private TextView okTv;
 
     private SelectableServiceUrlData selectableServiceUrlData;
-    private DevelopmentDialogListener devDialogListener;
     private SelectableServiceUrlList selectableServiceUrlList;
 
-    public static DevelopmentDialog getInstance(Context context, DevelopmentDialogData developmentDialogData) {
+    private final DevelopmentDialogData configData;
+
+    public static DevelopmentDialog getInstance(Context context
+            , SelectableServiceUrlData selectableServiceUrlData
+            , DevelopmentDialogListener developmentDialogListener
+            , DevelopmentDialogData developmentDialogData) {
+        if (developmentDialogData == null) {
+            developmentDialogData = new DevelopmentDialogData(true, true, true);
+        }
+        developmentDialogData.selectableServiceUrlData = selectableServiceUrlData;
+        developmentDialogData.devDialogListener = developmentDialogListener;
         return new DevelopmentDialog(context, developmentDialogData);
     }
 
-    private DevelopmentDialog(Context context, DevelopmentDialogData developmentDialogData) {
+    private DevelopmentDialog(Context context, DevelopmentDialogData developmentDialogConfigData) {
         super(context);
-        selectableServiceUrlData = developmentDialogData.selectableServiceUrlData;
-        devDialogListener = developmentDialogData.devDialogListener;
+        this.configData = developmentDialogConfigData;
     }
 
     private Context getAppCx() {
@@ -79,7 +87,11 @@ public class DevelopmentDialog extends Dialog {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        if (configData == null) {
+            dismiss();
+            return;
+        }
+        setCancelable(configData.isBackPressEnabled);
         findViews();
         fadeInAnimation(rootV);
         initializeViews();
@@ -90,7 +102,6 @@ public class DevelopmentDialog extends Dialog {
     // =========================================================================================
     // INITIALIZER METHODS
     private void findViews() {
-        setCancelable(true);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.dialog_development);
 
@@ -154,29 +165,35 @@ public class DevelopmentDialog extends Dialog {
         restartTv.setOnClickListener(mOnClickListener);
         okTv.setOnClickListener(mOnClickListener);
 
-        if (devDialogListener != null) {
-            View customBackground = devDialogListener.getCustomBackgroundView(backgroundRl);
+        if (configData.devDialogListener != null) {
+            View customBackground = configData.devDialogListener.getCustomBackgroundView(backgroundRl);
             if (customBackground != null) {
                 backgroundRl.removeAllViews();
                 backgroundRl.addView(customBackground);
             }
         }
+        okTv.setVisibility(configData.isOkButtonEnabled ? View.VISIBLE : View.GONE);
+        restartTv.setVisibility(configData.isRestartButtonEnabled ? View.VISIBLE : View.GONE);
     }
 
     private void initializeSelectableServiceUrlList(boolean forceRecreateData, boolean forceRecreateUi) {
-        if (devDialogListener == null) {
+        if (configData == null) {
+            Log.println(Log.ASSERT, TAG, "ConfigData was NULL");
+            return;
+        }
+        if (configData.devDialogListener == null) {
             Log.println(Log.ASSERT, TAG, "DevelopmentDialogListener was NULL");
             return;
         }
         if (selectableServiceUrlData == null || forceRecreateData) {
             // Get url list.
-            selectableServiceUrlData = devDialogListener.getServiceUrlLists();
+            selectableServiceUrlData = configData.devDialogListener.getServiceUrlLists();
             if (selectableServiceUrlData.selectableServiceUrlItemList == null) {
                 Log.println(Log.ASSERT, TAG, "selectableServiceUrlData.selectableServiceUrlItemList was NULL");
                 return;
             }
             // Notify if previous selection exist.
-            notifyServiceUrlSelectionChangedForAllItems(selectableServiceUrlData, devDialogListener);
+            notifyServiceUrlSelectionChangedForAllItems(selectableServiceUrlData, configData.devDialogListener);
         }
 
         if (forceRecreateUi) {
@@ -188,12 +205,17 @@ public class DevelopmentDialog extends Dialog {
     }
 
     private void initializeCustomDevelopmentItems() {
-        if (devDialogListener == null) {
+        if (configData == null) {
+            Log.println(Log.ASSERT, TAG, "ConfigData was NULL");
             return;
         }
-        List<CustomDevelopmentItem> customOptionsList = devDialogListener.getCustomOptionsList();
+        if (configData.devDialogListener == null) {
+            Log.println(Log.ASSERT, TAG, "DevelopmentDialogListener was NULL");
+            return;
+        }
+        List<CustomDevelopmentItem> customOptionsList = configData.devDialogListener.getCustomOptionsList();
         customOptionsArea.removeAllViews();
-        CustomDevelopmentList customCheckList = new CustomDevelopmentList(getAppCx(), devDialogListener);
+        CustomDevelopmentList customCheckList = new CustomDevelopmentList(getAppCx(), configData.devDialogListener);
         customCheckList.inflateViews(getAppCx(), customOptionsList, R.layout.item_custom_development, 0);
         customOptionsArea.addView(customCheckList);
     }
@@ -305,8 +327,12 @@ public class DevelopmentDialog extends Dialog {
 
             @Override
             public void onCorePickerConfirmed(int selectionIndex) {
-                if (devDialogListener == null) {
-                    Log.println(Log.ASSERT, "DevelopmentDialog", "DevDialogListener was null");
+                if (configData == null) {
+                    Log.println(Log.ASSERT, TAG, "ConfigData was NULL");
+                    return;
+                }
+                if (configData.devDialogListener == null) {
+                    Log.println(Log.ASSERT, TAG, "DevDialogListener was null");
                     return;
                 }
 
@@ -316,7 +342,7 @@ public class DevelopmentDialog extends Dialog {
                     return;
                 }
                 HelperForPref.putUrlSelection(getAppCx(), selectionItem);
-                devDialogListener.onSelectionChanged(selectionItem);
+                configData.devDialogListener.onSelectionChanged(selectionItem);
                 selectableServiceUrlList.notifyDataSetChanged();
             }
         };
@@ -342,7 +368,7 @@ public class DevelopmentDialog extends Dialog {
         serviceLinkPicker.showCustomDialog();
     }
 
-    public void applyServiceUrlSelections() {
+    private void applyServiceUrlSelections() {
         if (selectableServiceUrlData == null || selectableServiceUrlData.selectableServiceUrlItemList == null) {
             restartWithDelay();
             return;
