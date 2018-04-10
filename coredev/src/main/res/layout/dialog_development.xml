@@ -77,7 +77,8 @@
 
             <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:paddingBottom="20dp">
 
                 <!--SERVICE LINK CHANGE OPTION-->
                 <RelativeLayout
@@ -152,12 +153,40 @@
                     android:textStyle="bold"
                     android:typeface="monospace" />
 
-                <!--DEVELOPMENT OPTIONS HEADER-->
+                <!--CUSTOM DEVELOPMENT OPTIONS AREA-->
+                <TextView
+                    android:id="@+id/development_options_custom_options_header"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/development_service_link_apply_selection"
+                    android:layout_marginTop="20dp"
+                    android:text="@string/cd_txt_development_custom_options_header"
+                    android:textColor="@color/dev_clr_code_green"
+                    android:textSize="12.5dp"
+                    android:textStyle="bold"
+                    android:typeface="monospace" />
+
+                <View
+                    android:id="@+id/development_options_footer_line"
+                    style="@style/horizontal_line"
+                    android:layout_below="@id/development_options_custom_options_header"
+                    android:layout_marginTop="10dp"
+                    android:background="@color/dev_clr_code_green" />
+
+                <RelativeLayout
+                    android:id="@+id/development_custom_checks_area"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/development_options_footer_line"
+                    android:minHeight="25dp" />
+                <!--CUSTOM DEVELOPMENT OPTIONS AREA-->
+
+                <!--DEFAULT DEVELOPMENT OPTIONS AREA-->
                 <TextView
                     android:id="@+id/development_options_header"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_below="@id/development_service_link_apply_selection"
+                    android:layout_below="@id/development_custom_checks_area"
                     android:layout_marginTop="20dp"
                     android:text="@string/cd_txt_development_default_options"
                     android:textColor="@color/dev_clr_code_green"
@@ -171,12 +200,10 @@
                     android:layout_below="@id/development_options_header"
                     android:layout_marginTop="2.5dp"
                     android:background="@color/dev_clr_code_green" />
-
-
-                <!--DEVELOPMENT BUTTON VISIBILITY OPTION-->
+                <!--Development mode option-->
                 <CheckBox
                     android:id="@+id/development_mode_check"
-                    style="@style/style_developement_checkbox_circle"
+                    style="@style/style_development_checkbox_circle"
                     android:layout_below="@id/development_options_header"
                     android:layout_marginTop="10dp" />
 
@@ -196,10 +223,12 @@
                     android:textSize="12.5dp"
                     android:textStyle="bold"
                     android:typeface="monospace" />
+                <!--Development mode option-->
 
+                <!--Development button option-->
                 <CheckBox
                     android:id="@+id/development_ufo_check"
-                    style="@style/style_developement_checkbox_circle"
+                    style="@style/style_development_checkbox_circle"
                     android:layout_below="@id/development_mode_check"
                     android:layout_marginTop="10dp" />
 
@@ -219,11 +248,12 @@
                     android:textSize="12.5dp"
                     android:textStyle="bold"
                     android:typeface="monospace" />
+                <!--Development button option-->
 
-                <!--KEEP DEVICE AWAKE-->
+                <!--Keep device awake option-->
                 <CheckBox
                     android:id="@+id/development_stay_awake_check"
-                    style="@style/style_developement_checkbox_circle"
+                    style="@style/style_development_checkbox_circle"
                     android:layout_below="@id/development_ufo_check"
                     android:layout_marginTop="10dp" />
 
@@ -243,36 +273,8 @@
                     android:textSize="12.5dp"
                     android:textStyle="bold"
                     android:typeface="monospace" />
-
-
-                <!--DEVELOPMENT OPTIONS HEADER-->
-                <TextView
-                    android:id="@+id/development_options_custom_options_header"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@id/development_stay_awake_text"
-                    android:layout_marginTop="20dp"
-                    android:text="@string/cd_txt_development_custom_options_header"
-                    android:textColor="@color/dev_clr_code_green"
-                    android:textSize="12.5dp"
-                    android:textStyle="bold"
-                    android:typeface="monospace" />
-
-                <View
-                    android:id="@+id/development_options_footer_line"
-                    style="@style/horizontal_line"
-                    android:layout_below="@id/development_options_custom_options_header"
-                    android:layout_marginBottom="10dp"
-                    android:layout_marginTop="10dp"
-                    android:background="@color/dev_clr_code_green" />
-
-                <RelativeLayout
-                    android:id="@+id/development_custom_checks_area"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@id/development_options_footer_line"
-                    android:minHeight="25dp"
-                    android:paddingBottom="25dp" />
+                <!--Keep device awake option-->
+                <!--DEFAULT DEVELOPMENT OPTIONS AREA-->
             </RelativeLayout>
         </ScrollView>
 

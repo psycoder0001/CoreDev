@@ -53,6 +53,7 @@ public class CustomDevelopmentList extends CoreDevListWithoutScroll {
     }
 
     private class CustomCheckViewHolder {
+        private final int padding;
         private View root;
         private CheckBox check;
         private TextView text;
@@ -62,6 +63,8 @@ public class CustomDevelopmentList extends CoreDevListWithoutScroll {
             root = convertView.findViewById(R.id.development_item_custom_root);
             check = convertView.findViewById(R.id.development_item_custom_check_check);
             text = convertView.findViewById(R.id.development_item_custom_check_text);
+
+            padding = root.getPaddingTop() * 2;
         }
 
         public void setData(Object data) {
@@ -71,6 +74,7 @@ public class CustomDevelopmentList extends CoreDevListWithoutScroll {
             if (data instanceof CustomDevelopmentButtonItem) {
                 dataType = CustomDevelopmentButtonItem.class;
                 root.setBackgroundResource(R.drawable.dev_bg_button);
+                root.setPadding(0, padding, 0, padding);
                 check.setVisibility(View.INVISIBLE);
                 text.setText(((CustomDevelopmentButtonItem) data).text);
             } else if (data instanceof CustomDevelopmentCheckItem) {

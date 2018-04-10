@@ -16,6 +16,7 @@ import com.deepdroid.coredev.devdialog.DevelopmentDialogListener;
 import com.deepdroid.coredev.devdialog.serviceurlselection.SelectableServiceUrlData;
 import com.deepdroid.coredev.devdialog.serviceurlselection.SelectableServiceUrlItem;
 import com.deepdroid.coredev.devdialog.serviceurlselection.UrlSelectionItem;
+import com.deepdroid.coredev.devdialog.uifordevdialog.CustomDevelopmentButtonItem;
 import com.deepdroid.coredev.devdialog.uifordevdialog.CustomDevelopmentCheckItem;
 import com.deepdroid.coredev.devdialog.uifordevdialog.CustomDevelopmentItem;
 import com.deepdroid.coredev.devufo.DevUFO;
@@ -64,6 +65,8 @@ public class MainActivity extends AppCompatActivity {
                 list.add(new CustomDevelopmentCheckItem(true, "TestItem 0"));
                 list.add(new CustomDevelopmentCheckItem(true, "TestItem 1"));
                 list.add(new CustomDevelopmentCheckItem(true, "TestItem 2"));
+                list.add(new CustomDevelopmentButtonItem("TestButton 0"));
+                list.add(new CustomDevelopmentButtonItem("TestButton 1"));
 
                 return list;
             }

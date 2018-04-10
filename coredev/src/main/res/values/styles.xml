@@ -49,7 +49,7 @@
     <!--CUSTOM SPINNER DIALOG PHONE ANIMATION-->
 
     <!--DEVELOPMENT DIALOG STYLES-->
-    <style name="style_developement_checkbox_circle" parent="android:Widget.CompoundButton.CheckBox">
+    <style name="style_development_checkbox_circle" parent="android:Widget.CompoundButton.CheckBox">
         <item name="android:layout_width">15dp</item>
         <item name="android:layout_height">15dp</item>
         <item name="android:button">@android:color/transparent</item>
