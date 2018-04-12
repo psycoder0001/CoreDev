@@ -28,6 +28,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="7.5dp"
+            android:layout_centerVertical="true"
             android:layout_marginStart="7.5dp"
             android:layout_toEndOf="@id/development_item_custom_check_check"
             android:layout_toRightOf="@id/development_item_custom_check_check"

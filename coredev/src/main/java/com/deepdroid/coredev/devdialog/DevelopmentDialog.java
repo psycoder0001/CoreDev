@@ -147,7 +147,11 @@ public class DevelopmentDialog extends Dialog {
 
     private void initializeViews() {
         // SET TEXTS
-        versionNameTv.setText("v" + HelperForCommon.getVersionName(getAppCx()));
+        if (!TextUtils.isEmpty(configData.versionName)) {
+            versionNameTv.setText(configData.versionName);
+        } else {
+            versionNameTv.setText("v" + HelperForCommon.getVersionName(getAppCx()));
+        }
         valuesTypeNameTv.setText("sw" + getAppCx().getResources().getInteger(R.integer.screen_type_int) + "dp");
         // SET CH_BOX
         enableDevCb.setChecked(isDevelopmentEnabled(getAppCx()));
@@ -202,6 +206,10 @@ public class DevelopmentDialog extends Dialog {
             selectableServiceUrlList.inflateViews(getAppCx(), selectableServiceUrlData.selectableServiceUrlItemList, R.layout.item_url_selection, 0);
             serviceLinkArea.addView(selectableServiceUrlList);
         }
+    }
+
+    public void reinitializeCustomDevelopmentItems() {
+        initializeCustomDevelopmentItems();
     }
 
     private void initializeCustomDevelopmentItems() {

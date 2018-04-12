@@ -27,6 +27,11 @@ import java.util.List;
 public class MainActivity extends AppCompatActivity {
 
     private static final String TAG = MainActivity.class.getSimpleName();
+    private static final String ID_ITEM_0 = "0";
+    private static final String ID_ITEM_1 = "1";
+    private static final String ID_ITEM_2 = "2";
+    private static final String ID_ITEM_3 = "3";
+    private static final String ID_ITEM_4 = "4";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,11 +67,11 @@ public class MainActivity extends AppCompatActivity {
             public List<CustomDevelopmentItem> getCustomOptionsList() {
                 List<CustomDevelopmentItem> list = new ArrayList<>();
 
-                list.add(new CustomDevelopmentCheckItem(true, "TestItem 0"));
-                list.add(new CustomDevelopmentCheckItem(true, "TestItem 1"));
-                list.add(new CustomDevelopmentCheckItem(true, "TestItem 2"));
-                list.add(new CustomDevelopmentButtonItem("TestButton 0"));
-                list.add(new CustomDevelopmentButtonItem("TestButton 1"));
+                list.add(new CustomDevelopmentCheckItem(ID_ITEM_0, true, "TestItem 0"));
+                list.add(new CustomDevelopmentCheckItem(ID_ITEM_1, true, "TestItem 1"));
+                list.add(new CustomDevelopmentCheckItem(ID_ITEM_2, true, "TestItem 2"));
+                list.add(new CustomDevelopmentButtonItem(ID_ITEM_3, "TestButton 0"));
+                list.add(new CustomDevelopmentButtonItem(ID_ITEM_4, "TestButton 1"));
 
                 return list;
             }
@@ -102,13 +107,15 @@ public class MainActivity extends AppCompatActivity {
             }
 
             @Override
-            public void onCustomCheckChanged(int index, boolean isChecked) {
-                Log.println(Log.ASSERT, TAG, "CheckItemChanged index: " + index + " | isChecked : " + isChecked);
+            public void onCustomCheckChanged(CustomDevelopmentCheckItem customDevelopmentCheckItem) {
+                Log.println(Log.ASSERT, TAG, "CheckItemChanged id: " + customDevelopmentCheckItem.id + " | isChecked : " + customDevelopmentCheckItem.isChecked);
+                customDevelopmentCheckItem.text = customDevelopmentCheckItem.id + " TestItem";
             }
 
             @Override
-            public void onCustomButtonClicked(int index) {
-
+            public void onCustomButtonClicked(CustomDevelopmentButtonItem customDevelopmentButtonItem) {
+                Log.println(Log.ASSERT, TAG, "ButtonItemClicked id: " + customDevelopmentButtonItem.id);
+                customDevelopmentButtonItem.text = customDevelopmentButtonItem.id + " TestButton";
             }
 
             @Override

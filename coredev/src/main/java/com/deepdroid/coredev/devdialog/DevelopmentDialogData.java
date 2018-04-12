@@ -11,6 +11,7 @@ public class DevelopmentDialogData {
     public boolean isOkButtonEnabled = false;
     public boolean isRestartButtonEnabled = false;
     public boolean isBackPressEnabled = true;
+    public String versionName;
 
     public DevelopmentDialogData(boolean isOkButtonEnabled, boolean isRestartButtonEnabled, boolean isBackPressEnabled) {
         this.isOkButtonEnabled = isOkButtonEnabled;

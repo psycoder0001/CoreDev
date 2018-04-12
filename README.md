@@ -107,56 +107,56 @@ II.C. Adding custom development options.
 // Thease are just examples. You can add your custom option for development.
     @Override
     public List<CustomDevelopmentItem> getCustomOptionsList() {
-        final List<CustomDevelopmentItem> customCheckList = new ArrayList<>();
-        customCheckList.add(new CustomDevelopmentCheckItem(AppConstants.IS_AD_ENABLED, "Ads Enabled"));
-        customCheckList.add(new CustomDevelopmentCheckItem(AppConstants.IS_ANALYTICS_ENABLED, "Analytics Enabled"));
-        customCheckList.add(new CustomDevelopmentCheckItem(AppConstants.IS_FIREBASE_ENABLED, "Firebase Enabled"));
-        customCheckList.add(new CustomDevelopmentCheckItem(AppConstants.LOGS_ENABLED_FOR_ADS, "Logs Enabled for Ads"));
-        customCheckList.add(new CustomDevelopmentCheckItem(AppConstants.LOGS_ENABLED_FOR_ANALYTICS, "Logs Enabled for Analytics"));
-        customCheckList.add(new CustomDevelopmentCheckItem(AppConstants.LOGS_ENABLED_FOR_LOCATION, "Logs Enabled for Location"));
-        customCheckList.add(new CustomDevelopmentCheckItem(AppConstants.IS_ADS_DEVELOPMENT_MODE_ENABLED, "Development Mode for Ads"));
-        customCheckList.add(new CustomDevelopmentButtonItem("Show Rate Me Dialog"));
-        customCheckList.add(new CustomDevelopmentButtonItem("Show Firebase Token"));
-        return customCheckList;
+        final List<CustomDevelopmentItem> customItemList = new ArrayList<>();
+        customItemList.add(new CustomDevelopmentCheckItem(ID_ITEM_CHK_0, AppConstants.IS_AD_ENABLED, "Ads Enabled"));
+        customItemList.add(new CustomDevelopmentCheckItem(ID_ITEM_CHK_1, AppConstants.IS_ANALYTICS_ENABLED, "Analytics Enabled"));
+        customItemList.add(new CustomDevelopmentCheckItem(ID_ITEM_CHK_2, AppConstants.IS_FIREBASE_ENABLED, "Firebase Enabled"));
+        customItemList.add(new CustomDevelopmentCheckItem(ID_ITEM_CHK_3, AppConstants.LOGS_ENABLED_FOR_ADS, "Logs Enabled for Ads"));
+        customItemList.add(new CustomDevelopmentCheckItem(ID_ITEM_CHK_4, AppConstants.LOGS_ENABLED_FOR_ANALYTICS, "Logs Enabled for Analytics"));
+        customItemList.add(new CustomDevelopmentCheckItem(ID_ITEM_CHK_5, AppConstants.LOGS_ENABLED_FOR_LOCATION, "Logs Enabled for Location"));
+        customItemList.add(new CustomDevelopmentCheckItem(ID_ITEM_CHK_6, AppConstants.IS_ADS_DEVELOPMENT_MODE_ENABLED, "Development Mode for Ads"));
+        customItemList.add(new CustomDevelopmentButtonItem(ID_ITEM_BTN_0, "Show Rate Me Dialog"));
+        customItemList.add(new CustomDevelopmentButtonItem(ID_ITEM_BTN_1, "Show Firebase Token"));
+        return customItemList;
     }
     
     @Override
-    public void onCustomCheckChanged(int index, boolean isChecked) {
-        switch (index) {
-            case 0:
+    public void onCustomCheckChanged(CustomDevelopmentCheckItem customDevelopmentCheckItem) {
+        switch (customDevelopmentCheckItem.id) {
+            case ID_ITEM_CHK_0:
                 HConstants.IS_AD_ENABLED = isChecked;
                 break;
-            case 1:
+            case ID_ITEM_CHK_1:
                 HConstants.IS_ANALYTICS_ENABLED = isChecked;
                 break;
-            case 2:
+            case ID_ITEM_CHK_2:
                 HConstants.IS_FIREBASE_ENABLED = isChecked;
                 break;
-            case 3:
+            case ID_ITEM_CHK_3:
                 HConstants.LOGS_ENABLED_FOR_ADS = isChecked;
                 break;
-            case 4:
+            case ID_ITEM_CHK_4:
                 HConstants.LOGS_ENABLED_FOR_ANALYTICS = isChecked;
                 break;
-            case 5:
+            case ID_ITEM_CHK_5:
                 HConstants.LOGS_ENABLED_FOR_LOCATION = isChecked;
                 break;
-            case 6:
+            case ID_ITEM_CHK_6:
                 HConstants.IS_ADS_DEVELOPMENT_MODE_ENABLED = isChecked;
                 break;
         }
     }
 
     @Override
-    public void onCustomButtonClicked(int index) {
+    public void onCustomButtonClicked(CustomDevelopmentButtonItem customDevelopmentButtonItem) {
         if (customOptionsListener == null) {
             return;
         }
-        switch (index) {
-            case 7:
+        switch (customDevelopmentButtonItem.id) {
+            case ID_ITEM_BTN_0:
                 customOptionsListener.onRateMeClicked();
                 break;
-            case 8:
+            case ID_ITEM_BTN_1:
                 customOptionsListener.onFirebaseTokenClicked();
                 break;
         }
