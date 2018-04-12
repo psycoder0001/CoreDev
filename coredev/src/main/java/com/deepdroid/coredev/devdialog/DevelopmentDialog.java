@@ -97,6 +97,10 @@ public class DevelopmentDialog extends Dialog {
         initializeViews();
         initializeSelectableServiceUrlList(false, true);
         initializeCustomDevelopmentItems();
+
+        if (configData.devDialogListener != null) {
+            configData.devDialogListener.onDialogAppear(this);
+        }
     }
 
     // =========================================================================================
@@ -208,10 +212,6 @@ public class DevelopmentDialog extends Dialog {
         }
     }
 
-    public void reinitializeCustomDevelopmentItems() {
-        initializeCustomDevelopmentItems();
-    }
-
     private void initializeCustomDevelopmentItems() {
         if (configData == null) {
             Log.println(Log.ASSERT, TAG, "ConfigData was NULL");
@@ -236,6 +236,15 @@ public class DevelopmentDialog extends Dialog {
             Log.e("BadToken", "DevDialog can not work with applicationContext, try using directly an activity as a context");
         }
     }
+
+    @Override
+    public void dismiss() {
+        super.dismiss();
+        if (configData != null && configData.devDialogListener != null) {
+            configData.devDialogListener.onDialogDisappear();
+        }
+    }
+
     // INITIALIZER METHODS
     // =========================================================================================
 
@@ -416,6 +425,14 @@ public class DevelopmentDialog extends Dialog {
     }
 
     // SERVICE URL SELECTION
+    // =============================================================================================
+
+    // =============================================================================================
+    // PUBLIC METHODS
+    public void reinitializeCustomDevelopmentItems() {
+        initializeCustomDevelopmentItems();
+    }
+    // PUBLIC METHODS
     // =============================================================================================
 
     // =============================================================================================

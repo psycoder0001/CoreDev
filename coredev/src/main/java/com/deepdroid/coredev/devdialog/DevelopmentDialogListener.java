@@ -31,4 +31,10 @@ public abstract class DevelopmentDialogListener {
     public View getCustomBackgroundView(ViewGroup parent) {
         return null;
     }
+
+    public void onDialogAppear(DevelopmentDialog developmentDialog) {
+    }
+
+    public void onDialogDisappear() {
+    }
 }
