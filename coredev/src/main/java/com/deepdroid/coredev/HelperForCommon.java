@@ -1,5 +1,6 @@
 package com.deepdroid.coredev;
 
+import android.app.Activity;
 import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.content.Context;
@@ -10,6 +11,7 @@ import android.util.Log;
 import android.util.TypedValue;
 import android.view.View;
 import android.view.ViewTreeObserver;
+import android.widget.Toast;
 
 /**
  * Created by evrenozturk on 16.05.2017.
@@ -64,7 +66,13 @@ public class HelperForCommon {
         PendingIntent mPendingIntent = PendingIntent.getActivity(context, mPendingIntentId, mStartActivity, PendingIntent.FLAG_CANCEL_CURRENT);
         AlarmManager mgr = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
         mgr.set(AlarmManager.RTC, System.currentTimeMillis() + 600, mPendingIntent);
-        System.exit(0);
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN && context instanceof Activity) {
+            Toast.makeText(context, "Your app will be restarted soon!", Toast.LENGTH_SHORT).show();
+            ((Activity)context).finishAffinity();
+        }else {
+            System.exit(0);
+        }
     }
 
 

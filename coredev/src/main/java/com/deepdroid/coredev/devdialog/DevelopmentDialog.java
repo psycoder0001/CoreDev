@@ -274,7 +274,7 @@ public class DevelopmentDialog extends Dialog {
             } else if (view == stayAwakeTv) {
                 stayAwakeCb.performClick();
             } else if (view == restartTv) {
-                HelperForCommon.restartWithInit(getAppCx());
+                HelperForCommon.restartWithInit(getBestAvailableContext());
             } else if (view == okTv) {
                 dismiss();
             }
@@ -409,7 +409,7 @@ public class DevelopmentDialog extends Dialog {
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                HelperForCommon.restartWithInit(getAppCx());
+                HelperForCommon.restartWithInit(getBestAvailableContext());
             }
         }, 500);
     }
@@ -433,6 +433,20 @@ public class DevelopmentDialog extends Dialog {
         initializeCustomDevelopmentItems();
     }
     // PUBLIC METHODS
+    // =============================================================================================
+
+    // =============================================================================================
+    // INTERNAL METHODS
+    private Context getBestAvailableContext() {
+        if (configData != null && configData.devDialogListener != null && configData.devDialogListener.getActivity() != null) {
+            return configData.devDialogListener.getActivity();
+        } else if (getOwnerActivity() != null) {
+            return getOwnerActivity();
+        } else {
+            return getContext();
+        }
+    }
+    // INTERNAL METHODS
     // =============================================================================================
 
     // =============================================================================================

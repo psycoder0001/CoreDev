@@ -1,5 +1,6 @@
 package com.deepdroid.coredev.devdialog;
 
+import android.app.Activity;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -36,5 +37,9 @@ public abstract class DevelopmentDialogListener {
     }
 
     public void onDialogDisappear() {
+    }
+
+    public Activity getActivity() {
+        return null;
     }
 }
