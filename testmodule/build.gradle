@@ -11,7 +11,7 @@ android {
     defaultConfig {
         minSdkVersion project.ANDROID_MIN_SDK_VERSION
         targetSdkVersion project.ANDROID_TARGET_SDK_VERSION
-        versionCode Integer.valueOf(project.CURRENT_MAJOR_VERSION + project.CURRENT_MINOR_VERSION + project.CURRENT_UPLOAD_VERSION)
+        versionCode Integer.valueOf(VERSION_CODE)
 
         applicationId "com.deepdroid.coredevtestmodule"
         versionName "1.0"
@@ -26,7 +26,7 @@ android {
 
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
-    implementation 'com.android.support:appcompat-v7:27.0.2'
+    implementation "com.android.support:appcompat-v7:${project.support_version}"
     testImplementation 'junit:junit:4.12'
     implementation project(':coredev')
 }

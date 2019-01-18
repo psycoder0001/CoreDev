@@ -1,34 +1,17 @@
 // OVERRIDE build.gradle
 android {
     defaultConfig {
-        android.libraryVariants.all { variant ->
-            def currentVersionName = 'def'
 
-            currentVersionName = getVersionName()
-
-            // Override version name for specific build variant
-            variant.mergedFlavor.versionName = currentVersionName;
-        }
     }
 }
 
 // Override ext scope so that bintrayUpload version can be set
 ext {
-    libraryVersion = getVersionName()
+    libraryVersion = VERSION_NAME
 }
 
 // ===================================
 // FUNCTIONS
-def getVersionName() {
-    CURRENT_MAJOR_VERSION + "." + CURRENT_MINOR_VERSION + "." + (Integer.parseInt(CURRENT_UPLOAD_VERSION) + 1)
-}
-
-def increaseVersionNameByOne() {
-    ant.propertyfile(file: "../gradle.properties") {
-        entry(key: "CURRENT_UPLOAD_VERSION", value: (Integer.parseInt(CURRENT_UPLOAD_VERSION) + 1))
-    }
-}
-
 // Auto-commit version changes
 def commitChangesForDistribution() {
     // Print information text
@@ -75,11 +58,9 @@ tasks.whenTaskAdded { task ->
 
 task('onAssembleRelease') << {
     println "TASK: ON ASSEMBLE RELEASE"
-    project.ext.set('hurPlugInVersionName', getVersionName())
+    project.ext.set('hurPlugInVersionName', VERSION_NAME)
     project.ext.set('hurPlugInCommitMessage', 'v' + project.hurPlugInVersionName + ' Please amend this message')
-
-    increaseVersionNameByOne()
-    //commitChangesForDistribution()
+    commitChangesForDistribution()
 }
 
 // TASK CUSTOMIZATION
