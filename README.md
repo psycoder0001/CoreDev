@@ -19,7 +19,7 @@ allprojects {
 
 I.B. Add next line in modules build.gradle file:
 ```
-    implementation 'com.deepdroid.coredev:coredev:1.0.17'
+    implementation 'com.deepdroid.coredev:coredev:1.0.26'
 ```
 
 ### II. How to use?
