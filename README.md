@@ -6,6 +6,7 @@ It's a small green circle over your app.
 * Easy service url selection.
 * Editable service url area.
 * Customizable checkables & Buttons. (You'll get a notification when those items are itracted with. So you can take action in your app.)
+* Mini Game - TypoShooter :)
 
 ### I. How to add in the project?
 I.A. Add next lines in your **projects build.gradle** file:
@@ -19,7 +20,7 @@ allprojects {
 
 I.B. Add next line in modules build.gradle file:
 ```
-    implementation 'com.deepdroid.coredev:coredev:1.0.26'
+    implementation 'com.deepdroid.coredev:coredev:1.0.27'
 ```
 
 ### II. How to use?

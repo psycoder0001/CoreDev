@@ -25,15 +25,21 @@
         android:orientation="vertical"
         android:padding="10dp">
 
-        <TextView
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:text="@string/cd_development_options"
-            android:textColor="@color/dev_clr_code_green"
-            android:textSize="15sp"
-            android:textStyle="bold"
-            android:typeface="monospace" />
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/development_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="@string/cd_development_options"
+                android:textColor="@color/dev_clr_code_green"
+                android:textSize="15sp"
+                android:textStyle="bold"
+                android:typeface="monospace" />
+        </RelativeLayout>
 
         <View
             style="@style/horizontal_line"
@@ -88,10 +94,10 @@
                     android:layout_marginTop="20dp"
                     android:background="@drawable/dev_bg_button_transparent"
                     android:minHeight="75dp"
-                    android:paddingBottom="16dp"
                     android:paddingLeft="10dp"
+                    android:paddingTop="15dp"
                     android:paddingRight="10dp"
-                    android:paddingTop="15dp">
+                    android:paddingBottom="16dp">
 
                 </RelativeLayout>
 
@@ -99,14 +105,14 @@
                     android:id="@+id/development_service_link_header"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dp"
                     android:layout_marginStart="10dp"
+                    android:layout_marginLeft="10dp"
                     android:layout_marginTop="11dp"
                     android:background="@drawable/dev_bg_button_black"
-                    android:paddingBottom="2dp"
                     android:paddingLeft="10dp"
-                    android:paddingRight="10dp"
                     android:paddingTop="2dp"
+                    android:paddingRight="10dp"
+                    android:paddingBottom="2dp"
                     android:text="@string/cd_select_service_link"
                     android:textColor="@color/dev_clr_code_green"
                     android:textSize="12.5dp"
@@ -118,8 +124,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@id/development_service_link_area"
-                    android:layout_marginLeft="10dp"
                     android:layout_marginStart="10dp"
+                    android:layout_marginLeft="10dp"
                     android:layout_marginTop="-10dp"
                     android:background="@drawable/dev_bg_button"
                     android:gravity="center"
@@ -136,12 +142,12 @@
                     android:id="@+id/development_service_link_apply_selection"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_below="@id/development_service_link_area"
                     android:layout_alignParentEnd="true"
                     android:layout_alignParentRight="true"
-                    android:layout_below="@id/development_service_link_area"
+                    android:layout_marginTop="-10dp"
                     android:layout_marginEnd="10dp"
                     android:layout_marginRight="10dp"
-                    android:layout_marginTop="-10dp"
                     android:background="@drawable/dev_bg_button"
                     android:gravity="center"
                     android:padding="5dp"
@@ -211,10 +217,10 @@
                     android:id="@+id/development_mode_text"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_alignBottom="@id/development_mode_check"
                     android:layout_alignTop="@id/development_mode_check"
-                    android:layout_marginLeft="7.5dp"
+                    android:layout_alignBottom="@id/development_mode_check"
                     android:layout_marginStart="7.5dp"
+                    android:layout_marginLeft="7.5dp"
                     android:layout_toEndOf="@id/development_mode_check"
                     android:layout_toRightOf="@id/development_mode_check"
                     android:gravity="center_vertical"
@@ -236,10 +242,10 @@
                     android:id="@+id/development_ufo_text"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_alignBottom="@id/development_ufo_check"
                     android:layout_alignTop="@id/development_ufo_check"
-                    android:layout_marginLeft="7.5dp"
+                    android:layout_alignBottom="@id/development_ufo_check"
                     android:layout_marginStart="7.5dp"
+                    android:layout_marginLeft="7.5dp"
                     android:layout_toEndOf="@id/development_ufo_check"
                     android:layout_toRightOf="@id/development_ufo_check"
                     android:gravity="center_vertical"
@@ -261,10 +267,10 @@
                     android:id="@+id/development_stay_awake_text"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_alignBottom="@id/development_stay_awake_check"
                     android:layout_alignTop="@id/development_stay_awake_check"
-                    android:layout_marginLeft="7.5dp"
+                    android:layout_alignBottom="@id/development_stay_awake_check"
                     android:layout_marginStart="7.5dp"
+                    android:layout_marginLeft="7.5dp"
                     android:layout_toEndOf="@id/development_stay_awake_check"
                     android:layout_toRightOf="@id/development_stay_awake_check"
                     android:gravity="center_vertical"
@@ -275,13 +281,30 @@
                     android:typeface="monospace" />
                 <!--Keep device awake option-->
                 <!--DEFAULT DEVELOPMENT OPTIONS AREA-->
+
+                <TextView
+                    android:id="@+id/development_typoshooter_click"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/development_stay_awake_text"
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/dev_bg_button"
+                    android:gravity="center"
+                    android:padding="5dp"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="10dp"
+                    android:text="* Launch TypoShooter"
+                    android:textColor="@color/dev_clr_code_green"
+                    android:textSize="12sp"
+                    android:textStyle="bold"
+                    android:typeface="monospace" />
             </RelativeLayout>
         </ScrollView>
 
         <View
             style="@style/horizontal_line"
-            android:layout_marginBottom="2.5dp"
             android:layout_marginTop="2.5dp"
+            android:layout_marginBottom="2.5dp"
             android:background="@color/dev_clr_code_green" />
 
         <LinearLayout
@@ -316,4 +339,10 @@
                 android:typeface="monospace" />
         </LinearLayout>
     </LinearLayout>
+
+    <com.deepdroid.coredev.typo.TypoLayer
+        android:id="@+id/development_typo_layer"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone" />
 </RelativeLayout>

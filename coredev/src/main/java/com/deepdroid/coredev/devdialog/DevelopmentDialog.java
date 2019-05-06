@@ -13,6 +13,7 @@ import android.view.animation.Animation;
 import android.view.animation.ScaleAnimation;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -28,6 +29,7 @@ import com.deepdroid.coredev.devdialog.serviceurlselection.SelectableServiceUrlL
 import com.deepdroid.coredev.devdialog.serviceurlselection.UrlSelectionItem;
 import com.deepdroid.coredev.devdialog.uifordevdialog.CustomDevelopmentItem;
 import com.deepdroid.coredev.devdialog.uifordevdialog.CustomDevelopmentList;
+import com.deepdroid.coredev.typo.TypoLayer;
 
 import java.util.List;
 
@@ -43,6 +45,8 @@ public class DevelopmentDialog extends Dialog {
 
     private View rootV;
     private RelativeLayout backgroundRl;
+    private TypoLayer typoLayer;
+    private View typoV;
     private TextView versionNameTv;
     private TextView valuesTypeNameTv;
     private RelativeLayout serviceLinkArea;
@@ -115,6 +119,8 @@ public class DevelopmentDialog extends Dialog {
 
         rootV = findViewById(R.id.development_root);
         backgroundRl = findViewById(R.id.development_background);
+        typoLayer = findViewById(R.id.development_typo_layer);
+        typoV = findViewById(R.id.development_typoshooter_click);
         versionNameTv = findViewById(R.id.development_application_version);
         serviceLinkArea = findViewById(R.id.development_service_link_area);
         setToDefaultTv = findViewById(R.id.development_service_link_clear_selection);
@@ -165,6 +171,7 @@ public class DevelopmentDialog extends Dialog {
         enableDevCb.setOnCheckedChangeListener(mOnCheckChangedListener);
         showUfoCb.setOnCheckedChangeListener(mOnCheckChangedListener);
         stayAwakeCb.setOnCheckedChangeListener(mOnCheckChangedListener);
+        typoV.setOnClickListener(mOnClickListener);
         setToDefaultTv.setOnClickListener(mOnClickListener);
         applyServiceLinkSelectionsTv.setOnClickListener(mOnClickListener);
         enableDevTv.setOnClickListener(mOnClickListener);
@@ -260,7 +267,9 @@ public class DevelopmentDialog extends Dialog {
     private final View.OnClickListener mOnClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View view) {
-            if (view == setToDefaultTv) {
+            if (view == typoV) {
+                typoLayer.start();
+            } else if (view == setToDefaultTv) {
                 HelperForPref.clearUrlSelections(getAppCx());
                 initializeSelectableServiceUrlList(true, true);
                 Log.println(Log.ASSERT, TAG, "All service url selections are now cleared");
